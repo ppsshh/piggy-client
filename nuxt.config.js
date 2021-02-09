@@ -32,11 +32,20 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/proxy',
   ],
+
+  router: {
+    middleware: ['globals'],
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  proxy: {
+    '/api': 'http://localhost:9292/',
+  },
 }
