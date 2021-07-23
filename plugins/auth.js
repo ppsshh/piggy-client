@@ -2,18 +2,18 @@ export default async (context, inject) => {
   const { store, $axios, next } = context
   inject('auth', {
     async getSession() {
-      if (store.state.env.user || store.state.env.user === false) return
+      if (store.state.globals.user || store.state.globals.user === false) return
       try {
         const resp = await $axios.get('/api/session')
-        store.commit('env/SET_USER', resp.data)
+        store.commit('globals/SET_USER', resp.data)
       } catch {
-        store.commit('env/SET_USER', false)
+        store.commit('globals/SET_USER', false)
       }
     },
     async logout() {
       try {
         await $axios.delete('/api/session')
-        store.commit('env/SET_USER', null)
+        store.commit('globals/SET_USER', null)
       } catch {}
       next('/login')
     },
@@ -23,12 +23,12 @@ export default async (context, inject) => {
           username,
           password,
         })
-        store.commit('env/SET_USER', resp.data)
+        store.commit('globals/SET_USER', resp.data)
       } catch {}
       next('/')
     },
     loggedIn() {
-      return !!store.state.env.user
+      return !!store.state.globals.user
     },
   })
   await context.$auth.getSession()

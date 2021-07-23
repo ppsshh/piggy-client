@@ -23,19 +23,15 @@
 
     <div>
       <OperationForm />
-      {{ JSON.stringify(savings) }}
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  async asyncData({ params }) {
-    const data = await fetch(
-      `http://localhost:3000/api/month/${params.year}/${params.month}`
-    ).then((res) => res.json())
-    // console.log(data)
-    return data
+  async asyncData({ params, $axios }) {
+    const resp = await $axios.get(`/api/month/${params.year}/${params.month}`)
+    return resp.data
   },
   data() {
     return {

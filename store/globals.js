@@ -1,9 +1,13 @@
 export const state = () => ({
+  user: null,
   tags: {},
   currencies: {},
 })
 
 export const mutations = {
+  SET_USER(state, val) {
+    state.user = val
+  },
   SET_TAGS(state, tags) {
     state.tags = tags
   },

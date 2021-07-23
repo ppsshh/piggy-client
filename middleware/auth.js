@@ -1,7 +1,13 @@
-export default (context) => {
-  const { redirect, route, $auth } = context
+export default async (context) => {
+  const { $auth, redirect, route, store } = context
 
-  if (['login'].includes(route.name)) {
-    if ($auth.loggedIn()) redirect('/')
-  } else if (!$auth.loggedIn()) redirect('/login')
+  if ($auth.loggedIn()) {
+    if (['login'].includes(route.name)) {
+      redirect('/')
+    } else if (process.server) {
+      await store.dispatch('globals/load')
+    }
+  } else {
+    redirect('/login')
+  }
 }
