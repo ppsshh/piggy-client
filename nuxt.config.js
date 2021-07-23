@@ -17,7 +17,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['@/plugins/auth.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -30,13 +30,11 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
-    '@nuxtjs/proxy',
+    '@nuxtjs/axios', // https://go.nuxtjs.dev/axios
   ],
 
   router: {
-    middleware: ['globals'],
+    middleware: ['auth'],
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -44,8 +42,4 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-
-  proxy: {
-    '/api': 'http://localhost:9292/',
-  },
 }
