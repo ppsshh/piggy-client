@@ -2,6 +2,7 @@
   <div class="month-page">
     <div>
       <Calendar />
+      <h3>Add new:</h3>
       <OperationForm />
       <div v-for="(amount, cur) of total" :key="cur" class="total-block">
         {{ $store.state.globals.currencies[cur].title }}
