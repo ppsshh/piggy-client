@@ -1,7 +1,7 @@
 <template>
   <span class="amount" :class="htmlClass"
     >{{ amountWhole }}<span class="cents">.{{ amountDec }}</span>
-    {{ currency }}</span
+    {{ currency.title }}</span
   >
 </template>
 
@@ -13,31 +13,16 @@ export default {
   },
   computed: {
     amountWhole() {
-      const whole = Math.floor(this.amount)
-      // const dec = this.amount - whole
-      if (whole >= 10000) {
-        const wholeStr = whole.toString()
-        const groups = []
-        let start = 0
-        let end = wholeStr.length % 3
-        end = end === 0 ? 3 : end
-        while (end <= wholeStr.length) {
-          groups.push(wholeStr.slice(start, end))
-          start = end
-          end += 3
-        }
-        return groups.join(' ')
-      }
-      return whole
+      return Math.floor(
+        Math.abs(this.amount / Math.pow(10, this.currency.round))
+      )
     },
     amountDec() {
-      const dec = this.amount - Math.floor(this.amount)
-      return Math.round(dec * 100)
-        .toString()
-        .padStart(2, 0)
+      const dec = Math.abs(this.amount % Math.pow(10, this.currency.round))
+      return dec.toString().padStart(this.currency.round, 0)
     },
     currency() {
-      return this.$store.state.globals.currencies[this.currencyId].title
+      return this.$store.state.globals.currencies[this.currencyId]
     },
     htmlClass() {
       return this.amount > 0 ? 'positive' : 'negative'
@@ -53,6 +38,10 @@ export default {
   }
   &.negative {
     color: red;
+  }
+
+  .cents {
+    font-size: 0.6em;
   }
 }
 </style>

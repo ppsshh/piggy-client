@@ -5,8 +5,7 @@
       <h3>Add new:</h3>
       <OperationForm />
       <div v-for="(amount, cur) of total" :key="cur" class="total-block">
-        {{ $store.state.globals.currencies[cur].title }}
-        {{ amount }}
+        <Amount :amount="amount" :currency-id="Number.parseInt(cur)"></Amount>
       </div>
     </div>
 
@@ -103,10 +102,6 @@ export default {
         height: 1em;
         width: 1em;
         filter: invert(1);
-      }
-
-      .cents {
-        font-size: 0.6em;
       }
     }
   }
