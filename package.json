@@ -13,7 +13,8 @@
   "dependencies": {
     "@nuxtjs/axios": "*",
     "core-js": "*",
-    "nuxt": "*"
+    "nuxt": "*",
+    "vue-multiselect": "*"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "*",

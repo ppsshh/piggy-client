@@ -2,6 +2,14 @@
   <div class="month-page">
     <div>
       <Calendar />
+      <OperationForm />
+      <div v-for="(amount, cur) of total" :key="cur" class="total-block">
+        {{ $store.state.globals.currencies[cur].title }}
+        {{ amount }}
+      </div>
+    </div>
+
+    <div>
       <h1>
         {{ date.toLocaleDateString('en-US', { month: 'long' }) }}
         {{ date.getFullYear() }}
@@ -20,10 +28,6 @@
         </template>
       </div>
     </div>
-
-    <div>
-      <OperationForm />
-    </div>
   </div>
 </template>
 
@@ -36,7 +40,7 @@ export default {
   data() {
     return {
       operations: [],
-      savings: [],
+      total: [],
       hoveredTag: null,
     }
   },

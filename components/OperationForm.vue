@@ -9,7 +9,10 @@
     <div>Expense:</div>
     <input type="text" name="expense_amount" />
     <div>Tag:</div>
-    <input type="text" name="tag" />
+    <multiselect v-model="selectedTag" :options="tags">
+      <div slot="singleLabel" slot-scope="{ option }">{{ option.title }}</div>
+      <div slot="option" slot-scope="{ option }">{{ option.title }}</div>
+    </multiselect>
     <div>@</div>
     <input type="text" name="shop" />
     <div>Desc:</div>
@@ -18,7 +21,21 @@
 </template>
 
 <script>
-export default {}
+import Multiselect from 'vue-multiselect'
+
+export default {
+  components: { Multiselect },
+  data() {
+    return {
+      selectedTag: null,
+    }
+  },
+  computed: {
+    tags() {
+      return Object.values(this.$store.state.globals.tags)
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
