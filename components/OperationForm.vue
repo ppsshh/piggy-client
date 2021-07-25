@@ -2,29 +2,26 @@
   <div class="operation-form">
     <div>Date</div>
     <input type="text" name="date" />
+
     <div>Income</div>
     <input type="text" name="income_amount" />
+
     <div>Expense</div>
     <input type="text" name="expense_amount" />
+
     <div>Tag</div>
-    <multiselect
-      v-model="selectedTag"
-      :options="tags"
-      :custom-label="tagLabel"
-      select-label=""
-      deselect-label=""
-    >
+    <multiselect v-model="selectedTag" :options="tags" :custom-label="tagLabel">
     </multiselect>
+
     <div>Seller</div>
     <multiselect
       v-model="selectedShop"
       :options="shops"
-      select-label=""
-      deselect-label=""
       :internal-search="false"
       @search-change="searchShopName"
     >
     </multiselect>
+
     <div>Desc</div>
     <textarea></textarea>
   </div>
@@ -51,6 +48,7 @@ export default {
     async searchShopName(query) {
       const resp = await this.$axios.post('/api/autocomplete/shop', { query })
       this.shops = resp.data
+      this.shops.unshift(query || this.selectedShop)
     },
     tagLabel({ title }) {
       return title
