@@ -27,9 +27,13 @@ export default {
     },
     amountDec() {
       const denominator = Math.pow(10, this.currency.round)
-      const dec = Math.abs(this.amount) % denominator
+      const decNumber = Math.abs(this.amount) % denominator
+      const decString = decNumber
+        .toString()
+        .padStart(this.currency.round, 0)
+        .replace(/0*$/, '')
 
-      return '.' + dec.toString().padStart(this.currency.round, 0)
+      return decString.length === 0 ? '' : '.' + decString
     },
     currency() {
       return this.$store.state.globals.currencies[this.currencyId]
