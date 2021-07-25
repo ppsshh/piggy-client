@@ -4,12 +4,23 @@
       <Calendar />
       <h3>Add new:</h3>
       <OperationForm />
-      <div v-for="(amount, cur) of total" :key="cur" class="total-block">
-        <Amount :amount="amount" :currency-id="Number.parseInt(cur)"></Amount>
-      </div>
     </div>
 
     <div>
+      <div v-for="(amount, cur) of total" :key="cur" class="total-block">
+        <Amount
+          :amount="amount"
+          :currency-id="Number.parseInt(cur)"
+          :color="false"
+        >
+          <template slot="testslot" slot-scope="a">
+            {{ a.currency }}<br />
+            {{ a.negativity }}{{ a.whole
+            }}<span class="cents">{{ a.cents }}</span>
+          </template>
+        </Amount>
+      </div>
+
       <h1>
         {{ date.toLocaleDateString('en-US', { month: 'long' }) }}
         {{ date.getFullYear() }}
@@ -68,6 +79,15 @@ export default {
   display: grid;
   grid-template-columns: auto auto 1fr;
   grid-column-gap: 2em;
+
+  .total-block {
+    background: #7773;
+    display: inline-block;
+    line-height: 1.6em;
+    margin: 0.3em;
+    padding: 0.3em;
+    text-align: center;
+  }
 }
 
 .table {

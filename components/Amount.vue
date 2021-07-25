@@ -1,8 +1,14 @@
 <template>
   <span class="amount" :class="htmlClass"
-    >{{ amountWhole }}<span class="cents">.{{ amountDec }}</span>
-    {{ currency.title }}</span
-  >
+    ><slot
+      name="testslot"
+      :whole="amountWhole"
+      :cents="currency.round === 0 ? null : amountDec"
+      :currency="currency.title"
+      :positivity="amount > 0 ? '+' : '-'"
+      :negativity="amount < 0 ? '-' : null"
+    ></slot
+  ></span>
 </template>
 
 <script>

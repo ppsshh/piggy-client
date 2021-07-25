@@ -17,7 +17,9 @@
     <multiselect
       v-model="selectedShop"
       :options="shops"
+      :clear-on-select="false"
       :internal-search="false"
+      :preserve-search="true"
       @search-change="searchShopName"
     >
     </multiselect>
@@ -41,7 +43,9 @@ export default {
   },
   computed: {
     tags() {
-      return Object.values(this.$store.state.globals.tags)
+      return Object.values(this.$store.state.globals.tags).sort((a, b) =>
+        a.title > b.title ? 1 : -1
+      )
     },
   },
   methods: {

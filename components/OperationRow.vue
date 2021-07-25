@@ -19,12 +19,20 @@
         v-if="op.expense_amount"
         :amount="op.expense_amount * -1"
         :currency-id="op.expense_currency_id"
-      ></Amount>
+      >
+        <template slot="testslot" slot-scope="a">
+          {{ a.whole }}<span class="cents">{{ a.cents }}</span> {{ a.currency }}
+        </template>
+      </Amount>
       <Amount
         v-if="op.income_amount"
         :amount="op.income_amount"
         :currency-id="op.income_currency_id"
-      ></Amount>
+      >
+        <template slot="testslot" slot-scope="a">
+          {{ a.whole }}<span class="cents">{{ a.cents }}</span> {{ a.currency }}
+        </template>
+      </Amount>
     </div>
   </div>
 </template>
