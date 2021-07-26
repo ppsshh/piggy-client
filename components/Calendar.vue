@@ -82,8 +82,8 @@ a {
   padding: 0 0.2em 0.2em 0.2em;
 
   &.nuxt-link-active {
-    color: inherit;
-    background: orange;
+    color: white;
+    background: #ff5978;
   }
 }
 </style>

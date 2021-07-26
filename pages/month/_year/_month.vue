@@ -98,7 +98,7 @@ export default {
     display: table-row;
 
     &.highlighted {
-      background: orange;
+      background: #ffe7b9;
     }
     .nowrap {
       white-space: nowrap;

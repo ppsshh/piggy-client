@@ -1,44 +1,49 @@
 <template>
   <div class="operation-form">
-    <label>Date</label>
     <input v-model="item.date" type="text" />
 
-    <label>Income</label>
     <input
       v-model="item.income"
       type="text"
-      :placeholder="$session.defaultCurrency.title"
+      :placeholder="'Income ' + $session.defaultCurrency.title"
     />
 
-    <label>Expense</label>
     <input
       v-model="item.expense"
       type="text"
-      :placeholder="$session.defaultCurrency.title"
+      :placeholder="'Expense ' + $session.defaultCurrency.title"
     />
 
-    <label>Tag</label>
-    <multiselect v-model="item.tag" :options="tags" :custom-label="tagLabel">
+    <multiselect
+      v-model="item.tag"
+      class="wide"
+      :options="tags"
+      :custom-label="tagLabel"
+      placeholder="Tag"
+    >
     </multiselect>
 
-    <label>Seller</label>
     <multiselect
       v-model="item.shop"
+      class="wide"
       :options="shops"
       :clear-on-select="false"
       :internal-search="false"
+      placeholder="Seller"
       :preserve-search="true"
       @search-change="searchShopName"
     >
     </multiselect>
 
-    <label>Desc</label>
-    <textarea v-model="item.description"></textarea>
+    <textarea
+      v-model="item.description"
+      class="wide"
+      placeholder="Description"
+    ></textarea>
 
-    <div class="right-column">
-      <input type="submit" value="Submit" @click="submit" />
-      <div class="error">{{ error }}</div>
-    </div>
+    <div v-if="error" class="wide error">{{ error }}</div>
+
+    <input class="right-column" type="submit" value="Submit" @click="submit" />
   </div>
 </template>
 
@@ -110,44 +115,51 @@ export default {
 .operation-form {
   display: grid;
   grid-auto-rows: auto;
-  grid-template-columns: auto 30vw;
+  grid-template-columns: 10em 10em 10em;
   grid-gap: 1em;
   width: 40%;
 
-  .right-column {
-    grid-column: 2;
+  .wide {
+    grid-column: 1 / span 3;
+  }
 
-    .error {
-      color: #c00;
-    }
+  .right-column {
+    grid-column: 3;
+  }
+
+  .error {
+    color: #ff5978;
+    text-align: justify;
   }
 
   label {
     font-size: 1em;
-    line-height: 1.5em;
-    padding: 8px 8px 8px 0;
+    line-height: 2.3em;
+    text-align: right;
   }
 
   input[type='text'],
   input[type='submit'],
   textarea {
     color: #35495e;
-    font-size: 1em;
+    font-size: 0.85em;
+    font-family: inherit;
     line-height: 1.5em;
 
     border: 1px solid #e8e8e8;
     border-radius: 5px;
-    padding: 8px;
+    padding: 0.5em;
   }
   textarea {
     resize: vertical;
+    font-family: inherit;
   }
 
   input[type='submit'] {
     border: none;
     width: 100%;
     color: white;
-    background: #308fc8;
+    background: #ff5978;
     cursor: pointer;
 
     &:hover {
@@ -157,6 +169,36 @@ export default {
       margin-top: 0.1em;
       margin-bottom: -0.1em;
       opacity: 1;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+.operation-form {
+  .multiselect {
+    font-size: 0.85em;
+
+    .multiselect__tags,
+    .multiselect__single,
+    .multiselect__placeholder,
+    .multiselect__input {
+      color: #35495e;
+      font-size: 1em;
+      margin: 0;
+      padding: 0;
+      min-height: unset;
+      line-height: normal;
+    }
+    .multiselect__placeholder {
+      opacity: 0.6;
+    }
+    .multiselect__tags {
+      padding: 0.5em 2.5em 0.5em 0.5em;
+    }
+    .multiselect__select {
+      width: 2.5em;
+      height: 2.5em;
     }
   }
 }
