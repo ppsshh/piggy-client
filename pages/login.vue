@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     submit() {
-      this.$auth.login({
+      this.$session.login({
         username: this.username,
         password: this.password,
       })

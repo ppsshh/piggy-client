@@ -1,7 +1,7 @@
 export default (context) => {
-  const { $auth, redirect, route } = context
+  const { $session, redirect, route } = context
 
-  if ($auth.loggedIn()) {
+  if ($session.loggedIn()) {
     if (['login'].includes(route.name)) {
       redirect('/')
     }

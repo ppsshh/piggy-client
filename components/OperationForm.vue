@@ -4,10 +4,18 @@
     <input v-model="item.date" type="text" />
 
     <label>Income</label>
-    <input v-model="item.income" type="text" />
+    <input
+      v-model="item.income"
+      type="text"
+      :placeholder="$session.defaultCurrency.title"
+    />
 
     <label>Expense</label>
-    <input v-model="item.expense" type="text" />
+    <input
+      v-model="item.expense"
+      type="text"
+      :placeholder="$session.defaultCurrency.title"
+    />
 
     <label>Tag</label>
     <multiselect v-model="item.tag" :options="tags" :custom-label="tagLabel">
