@@ -128,7 +128,8 @@ export default {
     async submit() {
       try {
         this.error = null
-        await this.$axios.post('/api/records', this.submitPayload)
+        const resp = await this.$axios.post('/api/records', this.submitPayload)
+        this.$emit('saved', resp.data)
       } catch (e) {
         this.error = e.response.data
       }

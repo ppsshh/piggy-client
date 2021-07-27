@@ -33,8 +33,8 @@
       </div>
 
       {{ title }}
+      <a class="action-link" @click="$emit('open', op.id)">Edit</a>
       <pre v-if="op.description" class="description">{{ op.description }}</pre>
-      <a href="#" @click="$emit('open', op.id)">Edit</a>
     </div>
   </div>
 </template>
@@ -59,3 +59,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.row {
+  a.action-link {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+</style>

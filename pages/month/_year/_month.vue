@@ -27,7 +27,7 @@
       </h1>
       <div class="table" @mouseleave="hoveredTag = null">
         <template v-for="day in days">
-          <template v-for="(op, index) in operations[day]">
+          <template v-for="(op, index) in orderedOperations[day]">
             <OperationRow
               :key="'row' + op.id"
               :op="op"
@@ -44,7 +44,10 @@
               <div />
               <div />
               <div>
-                <OperationForm :payload="Object.assign({}, op)"></OperationForm>
+                <OperationForm
+                  :payload="Object.assign({}, op)"
+                  @saved="formSaved"
+                ></OperationForm>
               </div>
             </div>
           </template>
@@ -58,10 +61,8 @@
 export default {
   async asyncData({ params, $axios, store }) {
     const resp = await $axios.get(`/api/month/${params.year}/${params.month}`)
-    for (const date in resp.data.operations) {
-      for (const record of resp.data.operations[date]) {
-        record.tag = store.state.globals.tags[record.tag_id]
-      }
+    for (const record of resp.data.operations) {
+      record.tag = store.state.globals.tags[record.tag_id]
     }
     return resp.data
   },
@@ -75,7 +76,7 @@ export default {
   },
   computed: {
     days() {
-      return Object.keys(this.operations).sort().reverse()
+      return Object.keys(this.orderedOperations).sort().reverse()
     },
     date() {
       return new Date(
@@ -86,6 +87,13 @@ export default {
     monthShort() {
       return this.date.toLocaleDateString('en-US', { month: 'short' })
     },
+    orderedOperations() {
+      return this.operations.reduce((acc, op) => {
+        if (!acc[op.date]) acc[op.date] = []
+        acc[op.date].push(op)
+        return acc
+      }, {})
+    },
   },
   methods: {
     hoverTag(tagId) {
@@ -93,6 +101,17 @@ export default {
     },
     openForm(id) {
       this.formId = id
+    },
+    formSaved(resp) {
+      const idx = this.operations.findIndex((i) => i.id === resp.id)
+      resp.tag = this.$store.state.globals.tags[resp.tag_id]
+      if (idx) {
+        this.$set(this.operations, idx, resp)
+      } else {
+        this.operations.push(resp)
+      }
+
+      this.formId = null
     },
   },
 }
