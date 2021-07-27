@@ -20,6 +20,7 @@
       :options="tags"
       :custom-label="tagLabel"
       placeholder="Tag"
+      @select="selectTag"
     >
     </multiselect>
 
@@ -55,9 +56,7 @@ export default {
   props: {
     payload: {
       type: Object,
-      default: () => {
-        return {}
-      },
+      default: null,
     },
   },
   data() {
@@ -76,10 +75,34 @@ export default {
         a.title > b.title ? 1 : -1
       )
     },
+    submitPayload() {
+      return [
+        'id',
+        'date',
+        'income',
+        'expense',
+        'tag_id',
+        'shop',
+        'description',
+      ].reduce((acc, key) => {
+        acc[key] = this.item[key]
+        return acc
+      }, {})
+    },
   },
   beforeMount() {
-    for (const key of Object.keys(this.payload)) {
-      this.item[key] = this.payload[key]
+    if (this.payload) {
+      const p = this.payload
+      this.item = p
+
+      this.item.income = this.combineAmount(
+        p.income_amount,
+        p.income_currency_id
+      )
+      this.item.expense = this.combineAmount(
+        p.expense_amount,
+        p.expense_currency_id
+      )
     }
 
     if (!this.item.date) {
@@ -96,16 +119,26 @@ export default {
       this.shops = resp.data
       this.shops.unshift(query || this.item.shop || '')
     },
+    selectTag(tag, id) {
+      this.item.tag_id = tag.id
+    },
     tagLabel({ title }) {
       return title
     },
     async submit() {
       try {
         this.error = null
-        await this.$axios.post('/api/records', this.item)
+        await this.$axios.post('/api/records', this.submitPayload)
       } catch (e) {
         this.error = e.response.data
       }
+    },
+    combineAmount(amount, currId) {
+      if (!amount) return ''
+
+      const curr = this.$store.state.globals.currencies[currId]
+
+      return `${amount / Math.pow(10, curr.round)} ${curr.title}`
     },
   },
 }
@@ -153,6 +186,7 @@ export default {
   textarea {
     resize: vertical;
     font-family: inherit;
+    height: 6em;
   }
 
   input[type='submit'] {

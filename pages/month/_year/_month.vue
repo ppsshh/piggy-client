@@ -27,15 +27,27 @@
       </h1>
       <div class="table" @mouseleave="hoveredTag = null">
         <template v-for="day in days">
-          <OperationRow
-            v-for="(op, index) in operations[day]"
-            :key="op.id"
-            :op="op"
-            :day="day"
-            :highlighted="hoveredTag === op.tag_id"
-            :display-date="index === 0"
-            :on-hover="hoverTag"
-          />
+          <template v-for="(op, index) in operations[day]">
+            <OperationRow
+              :key="'row' + op.id"
+              :op="op"
+              :day="index === 0 ? monthShort + ' ' + day.split('-')[2] : ''"
+              :highlighted="hoveredTag === op.tag_id"
+              :on-hover="hoverTag"
+              @open="openForm"
+            />
+            <div
+              v-if="formId === op.id"
+              :key="'form' + op.id"
+              class="row form-row"
+            >
+              <div />
+              <div />
+              <div>
+                <OperationForm :payload="Object.assign({}, op)"></OperationForm>
+              </div>
+            </div>
+          </template>
         </template>
       </div>
     </div>
@@ -44,8 +56,13 @@
 
 <script>
 export default {
-  async asyncData({ params, $axios }) {
+  async asyncData({ params, $axios, store }) {
     const resp = await $axios.get(`/api/month/${params.year}/${params.month}`)
+    for (const date in resp.data.operations) {
+      for (const record of resp.data.operations[date]) {
+        record.tag = store.state.globals.tags[record.tag_id]
+      }
+    }
     return resp.data
   },
   data() {
@@ -53,6 +70,7 @@ export default {
       operations: [],
       total: [],
       hoveredTag: null,
+      formId: null,
     }
   },
   computed: {
@@ -65,10 +83,16 @@ export default {
         Number.parseInt(this.$route.params.month) - 1
       )
     },
+    monthShort() {
+      return this.date.toLocaleDateString('en-US', { month: 'short' })
+    },
   },
   methods: {
     hoverTag(tagId) {
       this.hoveredTag = tagId
+    },
+    openForm(id) {
+      this.formId = id
     },
   },
 }
@@ -103,6 +127,9 @@ export default {
     .nowrap {
       white-space: nowrap;
     }
+    .amounts {
+      float: right;
+    }
     & > div {
       display: table-cell;
       border: 1px solid white;
@@ -123,6 +150,15 @@ export default {
         width: 1em;
         filter: invert(1);
       }
+    }
+  }
+
+  .form-row {
+    display: table-row;
+
+    div.operation-form {
+      width: 0;
+      overflow: visible;
     }
   }
 }
