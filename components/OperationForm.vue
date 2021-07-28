@@ -149,9 +149,8 @@ export default {
 .operation-form {
   display: grid;
   grid-auto-rows: auto;
-  grid-template-columns: 10em 10em 10em;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1em;
-  width: 40%;
 
   .wide {
     grid-column: 1 / span 3;

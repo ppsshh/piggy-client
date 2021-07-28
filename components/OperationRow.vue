@@ -62,6 +62,39 @@ export default {
 
 <style lang="scss" scoped>
 .row {
+  display: table-row;
+
+  &.highlighted {
+    background: #ffe7b9;
+  }
+  .nowrap {
+    white-space: nowrap;
+  }
+  .amounts {
+    float: right;
+    margin-left: 1em;
+  }
+  & > div {
+    display: table-cell;
+    border: 1px solid white;
+    padding: 0.1em 0.4em 0.2em 0.4em;
+
+    .description {
+      margin: 0;
+      font-family: inherit;
+      font-size: 0.68em;
+      line-height: 1.8em;
+      opacity: 0.5;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .tag-image {
+      height: 1em;
+      width: 1em;
+      filter: invert(1);
+    }
+  }
   a.action-link {
     cursor: pointer;
     text-decoration: underline;

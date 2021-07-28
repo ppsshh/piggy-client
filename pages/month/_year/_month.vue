@@ -137,47 +137,12 @@ export default {
   display: table;
   max-width: 40em;
 
-  .row {
-    display: table-row;
-
-    &.highlighted {
-      background: #ffe7b9;
-    }
-    .nowrap {
-      white-space: nowrap;
-    }
-    .amounts {
-      float: right;
-    }
-    & > div {
-      display: table-cell;
-      border: 1px solid white;
-      padding: 0.1em 0.4em 0.2em 0.4em;
-
-      .description {
-        margin: 0;
-        font-family: inherit;
-        font-size: 0.68em;
-        line-height: 1.8em;
-        opacity: 0.5;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-      }
-
-      .tag-image {
-        height: 1em;
-        width: 1em;
-        filter: invert(1);
-      }
-    }
-  }
-
+  .row,
   .form-row {
     display: table-row;
 
-    div.operation-form {
-      width: 0;
-      overflow: visible;
+    & > div {
+      display: table-cell;
     }
   }
 }
