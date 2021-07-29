@@ -6,12 +6,16 @@
       v-model="item.income"
       type="text"
       :placeholder="'Income ' + $session.defaultCurrency.title"
+      @keyup.enter="inputEval"
+      @keyup.esc="inputRestoreValue"
     />
 
     <input
       v-model="item.expense"
       type="text"
       :placeholder="'Expense ' + $session.defaultCurrency.title"
+      @keyup.enter="inputEval"
+      @keyup.esc="inputRestoreValue"
     />
 
     <multiselect
@@ -140,6 +144,21 @@ export default {
       const curr = this.$store.state.globals.currencies[currId]
 
       return `${amount / Math.pow(10, curr.round)} ${curr.title}`
+    },
+    inputEval(e) {
+      try {
+        // eslint-disable-next-line no-eval
+        const result = eval(e.target.value)
+        if (result !== undefined) {
+          e.target.backup = e.target.backup || []
+          e.target.backup.push(e.target.value)
+          e.target.value = result
+        }
+      } catch {}
+    },
+    inputRestoreValue(e) {
+      if (e.target.backup && e.target.backup.length > 0)
+        e.target.value = e.target.backup.pop()
     },
   },
 }
