@@ -4,6 +4,7 @@
 
     <input
       v-model="item.income"
+      class="income-amount"
       type="text"
       :placeholder="'Income ' + $session.defaultCurrency.title"
       @keyup.enter="inputEval"
@@ -12,6 +13,7 @@
 
     <input
       v-model="item.expense"
+      class="expense-amount"
       type="text"
       :placeholder="'Expense ' + $session.defaultCurrency.title"
       @keyup.enter="inputEval"
@@ -201,6 +203,30 @@ export default {
     border: 1px solid #e8e8e8;
     border-radius: 5px;
     padding: 0.5em;
+
+    &::placeholder {
+      color: initial;
+      opacity: 0.35;
+    }
+
+    &.income-amount {
+      color: #070;
+
+      &:focus {
+        border: 1px solid #0a0;
+        box-shadow: 0 0 1px 1px #0a0;
+        outline: none;
+      }
+    }
+    &.expense-amount {
+      color: #b00;
+
+      &:focus {
+        border: 1px solid red;
+        box-shadow: 0 0 1px 1px red;
+        outline: none;
+      }
+    }
   }
   textarea {
     resize: vertical;
