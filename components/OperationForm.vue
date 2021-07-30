@@ -54,9 +54,9 @@
 
     <div v-if="error" class="wide error">{{ error }}</div>
 
+    <input v-if="item.id" type="button" value="Delete" @click="deleteItem" />
     <input
       v-if="item.id"
-      class="left-column"
       type="button"
       value="Cancel"
       @click="$emit('cancel')"
@@ -147,6 +147,25 @@ export default {
         this.error = null
         const resp = await this.$axios.post('/api/records', this.submitPayload)
         this.$emit('saved', resp.data)
+      } catch (e) {
+        this.error = e.response.data
+      }
+    },
+    async deleteItem() {
+      const answer = confirm(
+        [
+          'Deleting',
+          `+${this.item.income} / -${this.item.expense}`,
+          this.item.shop,
+          'Are you sure?',
+        ].join('\n')
+      )
+      if (!answer) return false
+
+      try {
+        this.error = null
+        await this.$axios.delete(`/api/record/${this.item.id}`)
+        this.$emit('delete', this.item.id)
       } catch (e) {
         this.error = e.response.data
       }

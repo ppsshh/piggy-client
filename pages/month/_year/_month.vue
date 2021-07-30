@@ -32,6 +32,7 @@
                   :payload="Object.assign({}, op)"
                   @saved="formSaved"
                   @cancel="formId = null"
+                  @delete="deleteRecord"
                 ></OperationForm>
               </div>
             </div>
@@ -110,6 +111,12 @@ export default {
       } else {
         this.operations.push(resp)
       }
+
+      this.formId = null
+    },
+    deleteRecord(recordId) {
+      const idx = this.operations.findIndex((i) => i.id === recordId)
+      if (idx !== -1) this.$delete(this.operations, idx)
 
       this.formId = null
     },

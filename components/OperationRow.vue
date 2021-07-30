@@ -33,7 +33,6 @@
       </div>
 
       {{ title }}
-      <a class="action-link">Delete</a>
       <pre v-if="op.description" class="description">{{ op.description }}</pre>
     </div>
   </div>
@@ -101,10 +100,6 @@ export default {
       width: 1em;
       filter: invert(1);
     }
-  }
-  a.action-link {
-    cursor: pointer;
-    text-decoration: underline;
   }
 }
 </style>
