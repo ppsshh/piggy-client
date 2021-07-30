@@ -1,8 +1,6 @@
 <template>
   <div>
-    <NuxtLink :to="prevUrl">«</NuxtLink>
-    <NuxtLink :to="currentUrl">✱</NuxtLink>
-    <NuxtLink :to="nextUrl">»</NuxtLink>
+    <NuxtLink :to="currentUrl">Current Month</NuxtLink>
 
     <select v-model="selectedYear">
       <option v-for="year of years" :key="year" :value="year">
@@ -45,24 +43,6 @@ export default {
     currentUrl() {
       const d = new Date()
       return `/month/${d.getFullYear()}/${d.getMonth() + 1}`
-    },
-    nextUrl() {
-      let year = Number.parseInt(this.$route.params.year)
-      let month = Number.parseInt(this.$route.params.month) + 1
-      if (month > 12) {
-        month = 1
-        year += 1
-      }
-      return `/month/${year}/${month}`
-    },
-    prevUrl() {
-      let year = Number.parseInt(this.$route.params.year)
-      let month = Number.parseInt(this.$route.params.month) - 1
-      if (month === 0) {
-        month = 12
-        year -= 1
-      }
-      return `/month/${year}/${month}`
     },
   },
   mounted() {

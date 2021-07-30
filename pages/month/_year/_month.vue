@@ -1,30 +1,29 @@
 <template>
   <div class="month-page">
     <div class="left-column">
-      <Calendar />
       <h3>Add new:</h3>
       <OperationForm />
     </div>
 
-    <div>
-      <div v-for="(amount, cur) of total" :key="cur" class="total-block">
-        <Amount
-          :amount="amount"
-          :currency-id="Number.parseInt(cur)"
-          :color="false"
-        >
-          <template slot="testslot" slot-scope="a">
-            {{ a.currency }}<br />
-            {{ a.negativity }}{{ a.whole
-            }}<span class="cents">{{ a.cents }}</span>
-          </template>
-        </Amount>
+    <div class="right-column">
+      <MonthHeader></MonthHeader>
+
+      <div class="totals-container">
+        <div v-for="(amount, cur) of total" :key="cur" class="total-block">
+          <Amount
+            :amount="amount"
+            :currency-id="Number.parseInt(cur)"
+            :color="false"
+          >
+            <template slot="testslot" slot-scope="a">
+              {{ a.currency }}<br />
+              {{ a.negativity }}{{ a.whole
+              }}<span class="cents">{{ a.cents }}</span>
+            </template>
+          </Amount>
+        </div>
       </div>
 
-      <h1>
-        {{ date.toLocaleDateString('en-US', { month: 'long' }) }}
-        {{ date.getFullYear() }}
-      </h1>
       <div class="table" @mouseleave="hoveredTag = null">
         <template v-for="day in days">
           <template v-for="(op, index) in orderedOperations[day]">
@@ -80,14 +79,12 @@ export default {
     days() {
       return Object.keys(this.orderedOperations).sort().reverse()
     },
-    date() {
-      return new Date(
+    monthShort() {
+      const date = new Date(
         this.$route.params.year,
         Number.parseInt(this.$route.params.month) - 1
       )
-    },
-    monthShort() {
-      return this.date.toLocaleDateString('en-US', { month: 'short' })
+      return date.toLocaleDateString('en-US', { month: 'short' })
     },
     orderedOperations() {
       return this.operations.reduce((acc, op) => {
@@ -125,23 +122,32 @@ export default {
   grid-template-columns: auto auto 1fr;
   grid-column-gap: 2em;
 
-  .total-block {
-    background: #7773;
-    display: inline-block;
-    line-height: 1.6em;
-    margin: 0.3em;
-    padding: 0.3em;
+  .totals-container {
     text-align: center;
+    margin: 1em 0;
+
+    .total-block {
+      background: #7773;
+      display: inline-block;
+      line-height: 1.6em;
+      margin: 0.3em;
+      padding: 0.3em;
+      text-align: center;
+    }
   }
 
   .left-column .operation-form {
     width: 32em;
   }
+
+  .right-column {
+    width: 40em;
+  }
 }
 
 .table {
   display: table;
-  max-width: 40em;
+  width: 100%;
 
   .row,
   .form-row {
