@@ -137,7 +137,7 @@ export default {
 <style lang="scss">
 .month-page {
   display: grid;
-  grid-template-columns: 1fr auto auto 1fr;
+  grid-template-columns: 1fr auto 20em 1fr;
   grid-column-gap: 2em;
 
   .totals-container {
@@ -175,17 +175,19 @@ export default {
 
     .open-form-button {
       width: 100%;
+      color: #777d;
       background: #7772;
       text-align: center;
       font-weight: bold;
-      opacity: 0.4;
+      opacity: 0.5;
       cursor: pointer;
       border-radius: 0.3em;
       padding: 0.5em 0;
       text-transform: uppercase;
+      text-shadow: 1px 1px 0 white;
 
       &:hover {
-        opacity: 0.6;
+        opacity: 1;
       }
     }
 

@@ -64,7 +64,8 @@ export default {
     display: block;
 
     &:hover {
-      background: #7774;
+      background: #7772;
+      border-radius: 0.2em;
     }
   }
 

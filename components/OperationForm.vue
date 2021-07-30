@@ -298,6 +298,7 @@ export default {
     border: none;
     width: 100%;
     color: white;
+    text-transform: uppercase;
 
     cursor: pointer;
 

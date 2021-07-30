@@ -1,7 +1,5 @@
 <template>
   <div>
-    <NuxtLink :to="currentUrl">Current Month</NuxtLink>
-
     <select v-model="selectedYear">
       <option v-for="year of years" :key="year" :value="year">
         {{ year }}
@@ -14,6 +12,7 @@
       :to="'/month/' + selectedYear + '/' + (index + 1)"
       >{{ month }}</NuxtLink
     >
+    | <NuxtLink :to="currentUrl">Current Month</NuxtLink>
   </div>
 </template>
 
@@ -62,8 +61,11 @@ a {
   padding: 0 0.2em 0.2em 0.2em;
 
   &.nuxt-link-active {
-    color: white;
-    background: #ff5978;
+    color: inherit;
+    background: #7775;
+    border-radius: 0.3em;
+    opacity: 0.7;
+    text-decoration: none;
   }
 }
 </style>
