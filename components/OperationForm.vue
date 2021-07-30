@@ -56,7 +56,7 @@
 
     <input v-if="item.id" type="button" value="Delete" @click="deleteItem" />
     <input
-      v-if="item.id"
+      class="middle-column"
       type="button"
       value="Cancel"
       @click="$emit('cancel')"
@@ -207,6 +207,9 @@ export default {
     grid-column: 1 / span 3;
   }
 
+  .middle-column {
+    grid-column: 2;
+  }
   .right-column {
     grid-column: 3;
   }

@@ -1,12 +1,18 @@
 <template>
   <div class="month-page">
-    <div class="left-column">
-      <h3>Add new:</h3>
-      <OperationForm />
-    </div>
-
-    <div class="right-column">
+    <div class="main-column">
       <MonthHeader></MonthHeader>
+
+      <div class="create-form">
+        <div
+          v-if="!createForm"
+          class="open-form-button"
+          @click="openCreateForm"
+        >
+          Create new record
+        </div>
+        <OperationForm v-else @cancel="createForm = false" />
+      </div>
 
       <div class="table" @mouseleave="hoveredTag = null">
         <template v-for="day in days">
@@ -25,14 +31,14 @@
               :key="'form' + op.id"
               class="row form-row"
             >
-              <div />
+              <div class="record-id">#{{ op.id }}</div>
               <div />
               <div>
                 <OperationForm
                   :payload="Object.assign({}, op)"
                   @saved="formSaved"
                   @cancel="formId = null"
-                  @delete="deleteRecord"
+                  @delete="recordDeleted"
                 ></OperationForm>
               </div>
             </div>
@@ -75,6 +81,7 @@ export default {
       total: [],
       hoveredTag: null,
       formId: null,
+      createForm: false,
     }
   },
   computed: {
@@ -114,11 +121,14 @@ export default {
 
       this.formId = null
     },
-    deleteRecord(recordId) {
+    recordDeleted(recordId) {
       const idx = this.operations.findIndex((i) => i.id === recordId)
       if (idx !== -1) this.$delete(this.operations, idx)
 
       this.formId = null
+    },
+    openCreateForm() {
+      this.createForm = true
     },
   },
 }
@@ -127,7 +137,7 @@ export default {
 <style lang="scss">
 .month-page {
   display: grid;
-  grid-template-columns: auto auto auto 1fr;
+  grid-template-columns: 1fr auto auto 1fr;
   grid-column-gap: 2em;
 
   .totals-container {
@@ -155,19 +165,39 @@ export default {
     }
   }
 
-  .left-column .operation-form {
-    width: 32em;
+  .main-column {
+    grid-column: 2;
+    width: 40em;
   }
 
-  .right-column {
-    width: 40em;
+  .create-form {
+    margin: 1em 0;
+
+    .open-form-button {
+      width: 100%;
+      background: #7772;
+      text-align: center;
+      font-weight: bold;
+      opacity: 0.4;
+      cursor: pointer;
+      border-radius: 0.3em;
+      padding: 0.5em 0;
+      text-transform: uppercase;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+
+    .operation-form {
+      margin: 0 3em;
+    }
   }
 }
 
 .table {
   display: table;
   width: 100%;
-  margin-top: 1em;
 
   .row,
   .form-row {
@@ -179,6 +209,12 @@ export default {
 
     .operation-form {
       margin: 1em 0;
+    }
+
+    .record-id {
+      font-size: 0.75em;
+      opacity: 0.5;
+      text-align: center;
     }
   }
 }
