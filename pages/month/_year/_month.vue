@@ -8,22 +8,6 @@
     <div class="right-column">
       <MonthHeader></MonthHeader>
 
-      <div class="totals-container">
-        <div v-for="(amount, cur) of total" :key="cur" class="total-block">
-          <Amount
-            :amount="amount"
-            :currency-id="Number.parseInt(cur)"
-            :color="false"
-          >
-            <template slot="testslot" slot-scope="a">
-              {{ a.currency }}<br />
-              {{ a.negativity }}{{ a.whole
-              }}<span class="cents">{{ a.cents }}</span>
-            </template>
-          </Amount>
-        </div>
-      </div>
-
       <div class="table" @mouseleave="hoveredTag = null">
         <template v-for="day in days">
           <template v-for="(op, index) in orderedOperations[day]">
@@ -53,6 +37,23 @@
             </div>
           </template>
         </template>
+      </div>
+    </div>
+
+    <div class="totals-container">
+      <div v-for="(amount, cur) of total" :key="cur" class="total-block">
+        <Amount
+          :amount="amount"
+          :currency-id="Number.parseInt(cur)"
+          :color="false"
+        >
+          <template slot="testslot" slot-scope="a">
+            <div class="currency">{{ a.currency }}</div>
+            <br />
+            {{ a.negativity }}{{ a.whole
+            }}<span class="cents">{{ a.cents }}</span>
+          </template>
+        </Amount>
       </div>
     </div>
   </div>
@@ -119,20 +120,31 @@ export default {
 <style lang="scss">
 .month-page {
   display: grid;
-  grid-template-columns: auto auto 1fr;
+  grid-template-columns: auto auto auto 1fr;
   grid-column-gap: 2em;
 
   .totals-container {
-    text-align: center;
-    margin: 1em 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: start;
+    align-content: flex-start;
+    margin-top: 6em;
 
     .total-block {
-      background: #7773;
+      background: #aaaaaa2b;
+      border-radius: 0.3em;
       display: inline-block;
       line-height: 1.6em;
       margin: 0.3em;
       padding: 0.3em;
       text-align: center;
+
+      .currency {
+        font-weight: bold;
+        display: inline-block;
+        opacity: 0.8;
+      }
     }
   }
 
@@ -148,6 +160,7 @@ export default {
 .table {
   display: table;
   width: 100%;
+  margin-top: 1em;
 
   .row,
   .form-row {
