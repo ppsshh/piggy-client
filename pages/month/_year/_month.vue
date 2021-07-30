@@ -1,6 +1,6 @@
 <template>
   <div class="month-page">
-    <div>
+    <div class="left-column">
       <Calendar />
       <h3>Add new:</h3>
       <OperationForm />
@@ -130,6 +130,10 @@ export default {
     margin: 0.3em;
     padding: 0.3em;
     text-align: center;
+  }
+
+  .left-column .operation-form {
+    width: 32em;
   }
 }
 

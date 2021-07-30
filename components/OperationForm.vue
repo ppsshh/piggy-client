@@ -1,24 +1,28 @@
 <template>
   <div class="operation-form">
-    <input v-model="item.date" type="text" />
+    <div class="date">
+      <input v-model="item.date" type="text" />
+    </div>
 
-    <input
-      v-model="item.income"
-      class="income-amount"
-      type="text"
-      :placeholder="'Income ' + $session.defaultCurrency.title"
-      @keyup.enter="inputEval"
-      @keyup.esc="inputRestoreValue"
-    />
+    <div class="income-amount">
+      <input
+        v-model="item.income"
+        type="text"
+        :placeholder="'Income ' + $session.defaultCurrency.title"
+        @keyup.enter="inputEval"
+        @keyup.esc="inputRestoreValue"
+      />
+    </div>
 
-    <input
-      v-model="item.expense"
-      class="expense-amount"
-      type="text"
-      :placeholder="'Expense ' + $session.defaultCurrency.title"
-      @keyup.enter="inputEval"
-      @keyup.esc="inputRestoreValue"
-    />
+    <div class="expense-amount">
+      <input
+        v-model="item.expense"
+        type="text"
+        :placeholder="'Expense ' + $session.defaultCurrency.title"
+        @keyup.enter="inputEval"
+        @keyup.esc="inputRestoreValue"
+      />
+    </div>
 
     <multiselect
       v-model="item.tag"
@@ -203,31 +207,56 @@ export default {
     border: 1px solid #e8e8e8;
     border-radius: 5px;
     padding: 0.5em;
+  }
 
-    &::placeholder {
-      color: initial;
-      opacity: 0.35;
+  .date input,
+  .income-amount input,
+  .expense-amount input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .income-amount,
+  .expense-amount {
+    position: relative;
+
+    &::before {
+      display: block;
+      position: absolute;
+      top: 0.4em;
+      left: 0.6em;
     }
-
-    &.income-amount {
-      color: #070;
-
-      &:focus {
-        border: 1px solid #0a0;
-        box-shadow: 0 0 1px 1px #0a0;
-        outline: none;
-      }
+    input {
+      padding-left: 2.2em;
     }
-    &.expense-amount {
-      color: #b00;
-
-      &:focus {
-        border: 1px solid red;
-        box-shadow: 0 0 1px 1px red;
-        outline: none;
-      }
+    input:focus {
+      outline: none;
     }
   }
+  .income-amount {
+    &::before {
+      content: '🡳';
+      color: green;
+    }
+
+    input:focus {
+      border: 1px solid #0a0;
+      box-shadow: 0 0 1px 1px #0a0;
+    }
+  }
+  .expense-amount {
+    &::before {
+      content: '🡱';
+      color: red;
+      top: 0.3em;
+    }
+
+    input:focus {
+      border: 1px solid red;
+      box-shadow: 0 0 1px 1px red;
+    }
+  }
+
   textarea {
     resize: vertical;
     font-family: inherit;
