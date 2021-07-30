@@ -53,7 +53,7 @@ export default {
     },
     title() {
       const tagTitle = this.op.tag ? this.op.tag.title : null
-      const shop = this.op.shop
+      const shop = (this.op.shop || '').replace(/\s*\[.*\]/, '')
       return [tagTitle, shop].join(tagTitle && shop ? ' @ ' : '')
     },
   },

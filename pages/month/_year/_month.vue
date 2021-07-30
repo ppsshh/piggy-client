@@ -104,7 +104,7 @@ export default {
     formSaved(resp) {
       const idx = this.operations.findIndex((i) => i.id === resp.id)
       resp.tag = this.$store.state.globals.tags[resp.tag_id]
-      if (idx) {
+      if (idx !== -1) {
         this.$set(this.operations, idx, resp)
       } else {
         this.operations.push(resp)
