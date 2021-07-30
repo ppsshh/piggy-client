@@ -54,6 +54,13 @@
 
     <div v-if="error" class="wide error">{{ error }}</div>
 
+    <input
+      v-if="item.id"
+      class="left-column"
+      type="button"
+      value="Cancel"
+      @click="$emit('cancel')"
+    />
     <input class="right-column" type="submit" value="Submit" @click="submit" />
   </div>
 </template>
@@ -198,6 +205,7 @@ export default {
 
   input[type='text'],
   input[type='submit'],
+  input[type='button'],
   textarea {
     color: #35495e;
     font-size: 0.85em;
@@ -263,11 +271,12 @@ export default {
     height: 6em;
   }
 
+  input[type='button'],
   input[type='submit'] {
     border: none;
     width: 100%;
     color: white;
-    background: #ff5978;
+
     cursor: pointer;
 
     &:hover {
@@ -278,6 +287,12 @@ export default {
       margin-bottom: -0.1em;
       opacity: 1;
     }
+  }
+  input[type='button'] {
+    background: #777;
+  }
+  input[type='submit'] {
+    background: #ff5978;
   }
 }
 </style>

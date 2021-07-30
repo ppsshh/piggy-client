@@ -8,7 +8,7 @@
     <div>
       <img v-if="imageSrc" :src="'/icons/' + imageSrc" class="tag-image" />
     </div>
-    <div>
+    <div class="content-cell" @click="$emit('open', op.id)">
       <div class="nowrap amounts" style="text-align: right">
         <Amount
           v-if="op.expense_amount"
@@ -33,7 +33,7 @@
       </div>
 
       {{ title }}
-      <a class="action-link" @click="$emit('open', op.id)">Edit</a>
+      <a class="action-link">Delete</a>
       <pre v-if="op.description" class="description">{{ op.description }}</pre>
     </div>
   </div>
@@ -69,6 +69,13 @@ export default {
   }
   .nowrap {
     white-space: nowrap;
+  }
+  .content-cell {
+    cursor: pointer;
+
+    &:hover {
+      background: #e3ffd6;
+    }
   }
   .amounts {
     float: right;

@@ -29,6 +29,7 @@
         <template v-for="day in days">
           <template v-for="(op, index) in orderedOperations[day]">
             <OperationRow
+              v-if="formId !== op.id"
               :key="'row' + op.id"
               :op="op"
               :day="index === 0 ? monthShort + ' ' + day.split('-')[2] : ''"
@@ -47,6 +48,7 @@
                 <OperationForm
                   :payload="Object.assign({}, op)"
                   @saved="formSaved"
+                  @cancel="formId = null"
                 ></OperationForm>
               </div>
             </div>
@@ -147,6 +149,10 @@ export default {
 
     & > div {
       display: table-cell;
+    }
+
+    .operation-form {
+      margin: 1em 0;
     }
   }
 }
