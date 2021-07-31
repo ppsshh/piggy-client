@@ -10,6 +10,15 @@
       :diff="diffs[cur]"
       :currency-id="Number.parseInt(cur)"
     ></CurrencyMonthlyTotalBlock>
+
+    <CurrencyMonthlyTotalBlock
+      :income="totalIncomesConverted"
+      :expense="totalExpensesConverted"
+      :diff="totalDiffConverted"
+      :total-after="totalAfterConverted"
+      :currency-id="$ex.defaultCurrency.id"
+      class="pink"
+    ></CurrencyMonthlyTotalBlock>
   </div>
 </template>
 
@@ -47,6 +56,18 @@ export default {
         Object.assign({}, this.totalsBefore)
       )
     },
+    totalIncomesConverted() {
+      return this.totalConverted(this.incomes)
+    },
+    totalExpensesConverted() {
+      return this.totalConverted(this.expenses)
+    },
+    totalDiffConverted() {
+      return this.totalConverted(this.diffs)
+    },
+    totalAfterConverted() {
+      return this.totalConverted(this.totalsAfter)
+    },
   },
   methods: {
     reduceOperation(acc, id, amount) {
@@ -54,6 +75,12 @@ export default {
       if (!acc[id]) acc[id] = 0
       acc[id] += amount
       return acc
+    },
+    totalConverted(obj) {
+      return Object.keys(obj).reduce(
+        (acc, curr) => acc + this.$ex.from(obj[curr], curr),
+        0
+      )
     },
   },
 }

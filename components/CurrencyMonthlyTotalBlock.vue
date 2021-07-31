@@ -1,5 +1,5 @@
 <template>
-  <div class="total-block">
+  <div class="total-block" :class="htmlClass">
     <Popper trigger="hover">
       <div class="popper details-popup">
         Income:
@@ -56,6 +56,7 @@ export default {
     income: { type: Number, default: 0 },
     expense: { type: Number, default: 0 },
     diff: { type: Number, default: 0 },
+    htmlClass: { type: String, default: '' },
   },
 }
 </script>
@@ -96,6 +97,20 @@ export default {
   .details-popup {
     padding: 0.4em 0.6em;
     text-align: left;
+  }
+}
+</style>
+
+<style lang="scss">
+.total-block.pink {
+  background: #ff5978;
+  color: white !important;
+
+  .popper-reference {
+    .amount.positive,
+    .amount.negative {
+      color: white;
+    }
   }
 }
 </style>
