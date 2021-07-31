@@ -1,13 +1,16 @@
 <template>
   <div class="month-header">
-    <div class="calendar">
-      <Calendar />
-    </div>
-
     <NuxtLink :to="prevUrl" class="prev-month">《</NuxtLink>
     <div class="current-month">
-      {{ date.toLocaleDateString('en-US', { month: 'long' }) }}
-      {{ date.getFullYear() }}
+      <Popper trigger="hover">
+        <div class="popper">
+          <Calendar />
+        </div>
+        <span slot="reference" class="title">
+          {{ date.toLocaleDateString('en-US', { month: 'long' }) }}
+          {{ date.getFullYear() }}
+        </span>
+      </Popper>
     </div>
 
     <NuxtLink :to="nextUrl" class="next-month">》</NuxtLink>
@@ -15,7 +18,11 @@
 </template>
 
 <script>
+import Popper from 'vue-popperjs'
+import 'vue-popperjs/dist/vue-popper.css'
+
 export default {
+  components: { Popper },
   computed: {
     date() {
       return new Date(
@@ -69,9 +76,47 @@ export default {
     }
   }
 
-  .current-month {
+  .current-month .title {
     font-size: 2em;
     font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+body .popper {
+  background-color: #fff;
+  box-shadow: #555 0 0 100px 0;
+  padding: 0;
+  border-radius: 0.5em;
+  border: none;
+
+  .popper__arrow {
+    border: none;
+    width: 25px;
+    height: 11px;
+    background-color: white;
+    mask-image: url('assets/icons/popover-arrow.svg');
+    mask-size: 25px 11px;
+  }
+
+  &[x-placement^='bottom'] {
+    margin-top: 10px;
+    .popper__arrow {
+      top: -10.5px;
+    }
+  }
+  &[x-placement^='top'] {
+    margin-bottom: 10px;
+    .popper__arrow {
+      bottom: -10.5px;
+      transform: rotate(180deg);
+    }
   }
 }
 </style>

@@ -14,7 +14,8 @@
     "@nuxtjs/axios": "*",
     "core-js": "*",
     "nuxt": "*",
-    "vue-multiselect": "*"
+    "vue-multiselect": "*",
+    "vue-popperjs": "^2.3.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "*",

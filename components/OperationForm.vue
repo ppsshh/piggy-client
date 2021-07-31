@@ -201,7 +201,8 @@ export default {
   display: grid;
   grid-auto-rows: auto;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 1em;
+  grid-column-gap: 1em;
+  grid-row-gap: 0.6em;
 
   .wide {
     grid-column: 1 / span 3;
@@ -312,7 +313,8 @@ export default {
     }
   }
   input[type='button'] {
-    background: #777;
+    background: #7773;
+    color: #444;
   }
   input[type='submit'] {
     background: #ff5978;

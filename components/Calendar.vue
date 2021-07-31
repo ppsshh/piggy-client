@@ -1,18 +1,25 @@
 <template>
-  <div>
-    <select v-model="selectedYear">
-      <option v-for="year of years" :key="year" :value="year">
+  <div class="calendar-popup">
+    <div class="years-list">
+      <div
+        v-for="year of years"
+        :key="year"
+        class="year"
+        :class="{ selected: selectedYear == year }"
+        @click="selectedYear = year"
+      >
         {{ year }}
-      </option>
-    </select>
+      </div>
+    </div>
 
-    <NuxtLink
-      v-for="(month, index) of months"
-      :key="index"
-      :to="'/month/' + selectedYear + '/' + (index + 1)"
-      >{{ month }}</NuxtLink
-    >
-    | <NuxtLink :to="currentUrl">Current Month</NuxtLink>
+    <div class="months-list">
+      <NuxtLink
+        v-for="(month, index) of months"
+        :key="index"
+        :to="'/month/' + selectedYear + '/' + (index + 1)"
+        >{{ month }}</NuxtLink
+      >
+    </div>
   </div>
 </template>
 
@@ -38,12 +45,6 @@ export default {
       selectedYear: null,
     }
   },
-  computed: {
-    currentUrl() {
-      const d = new Date()
-      return `/month/${d.getFullYear()}/${d.getMonth() + 1}`
-    },
-  },
   mounted() {
     const currentYear = new Date().getFullYear()
     const years = []
@@ -57,15 +58,63 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-a {
-  padding: 0 0.2em 0.2em 0.2em;
+.calendar-popup {
+  display: grid;
+  grid-template-columns: 5em 16em;
+  font-size: 1.2em;
+  height: 12em;
 
-  &.nuxt-link-active {
-    color: inherit;
-    background: #7775;
-    border-radius: 0.3em;
-    opacity: 0.7;
-    text-decoration: none;
+  .years-list {
+    text-align: center;
+    overflow-y: auto;
+    background: #7772;
+    color: #333;
+    border-top-left-radius: 0.4em;
+
+    .year {
+      padding: 0.5em 0;
+      cursor: pointer;
+
+      & + .year {
+        border-top: 1px solid #7773;
+      }
+
+      &.selected {
+        color: white !important;
+        background: #ff5978 !important;
+        cursor: default;
+      }
+      &:hover {
+        background: #7773;
+      }
+    }
+  }
+
+  .months-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 0.6em;
+    padding: 0.6em;
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 0.3em;
+      color: #333;
+      text-decoration: none;
+
+      &.nuxt-link-active {
+        color: white !important;
+        background: #ff5978 !important;
+        cursor: default;
+
+        font-weight: bold;
+      }
+      &:hover {
+        background: #7773;
+      }
+    }
   }
 }
 </style>
