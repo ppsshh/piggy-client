@@ -2,6 +2,7 @@ export const state = () => ({
   user: null,
   tags: {},
   currencies: {},
+  exrates: {},
   defaultCurrencyId: null,
 })
 

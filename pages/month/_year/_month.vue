@@ -61,11 +61,12 @@
 
 <script>
 export default {
-  async asyncData({ params, $axios, store }) {
+  async asyncData({ params, $axios, store, $ex }) {
     const resp = await $axios.get(`/api/month/${params.year}/${params.month}`)
     for (const record of resp.data.operations) {
       record.tag = store.state.globals.tags[record.tag_id]
     }
+    store.commit('globals/SET', ['exrates', resp.data.exrates])
     return resp.data
   },
   data() {
