@@ -1,51 +1,63 @@
 <template>
   <div class="total-block">
-    <Amount :amount="amount.total" :currency-id="currencyId" :color="false">
-      <template slot="testslot" slot-scope="a">
-        <div class="currency">{{ a.currency }}</div>
-
-        <Amount
-          :amount="amount.income"
-          :currency-id="currencyId"
-          :color="false"
-          html-class="income"
-        >
-          <template slot="testslot" slot-scope="income">
-            <template v-if="amount.income">
-              {{ income.whole }}<span class="cents">{{ income.cents }}</span>
-            </template>
-            <template v-else>-</template>
+    <Popper trigger="hover">
+      <div class="popper details-popup">
+        Income:
+        <Amount :amount="amount.income || 0" :currency-id="currencyId">
+          <template slot="testslot" slot-scope="a2">
+            {{ a2.whole }}<span class="cents">{{ a2.cents }}</span>
           </template>
         </Amount>
-        <Amount
-          :amount="amount.expense"
-          :currency-id="currencyId"
-          :color="false"
-          html-class="expense"
-        >
-          <template slot="testslot" slot-scope="expense">
-            <template v-if="amount.expense">
-              {{ expense.whole }}<span class="cents">{{ expense.cents }}</span>
-            </template>
-            <template v-else>-</template>
+        <br />
+        Expense:
+        <Amount :amount="-1 * (amount.expense || 0)" :currency-id="currencyId">
+          <template slot="testslot" slot-scope="a2">
+            {{ a2.whole }}<span class="cents">{{ a2.cents }}</span>
           </template>
         </Amount>
+      </div>
 
-        <div v-if="amount.total">
-          {{ a.negativity }}{{ a.whole
-          }}<span class="cents">{{ a.cents }}</span>
-        </div>
-        <div v-else>0</div>
-      </template>
-    </Amount>
+      <div slot="reference" class="popper-reference">
+        <Amount :amount="amount.total" :currency-id="currencyId" :color="false">
+          <template slot="testslot" slot-scope="a">
+            <div class="currency">{{ a.currency }}</div>
+
+            <Amount :amount="diff" :currency-id="currencyId" html-class="diff">
+              <template slot="testslot" slot-scope="a2">
+                <template v-if="diff">
+                  {{ a2.positivity }}{{ a2.whole
+                  }}<span class="cents">{{ a2.cents }}</span>
+                </template>
+                <template v-else>-</template>
+              </template>
+            </Amount>
+
+            <div v-if="amount.total">
+              {{ a.negativity }}{{ a.whole
+              }}<span class="cents">{{ a.cents }}</span>
+            </div>
+            <div v-else>0</div>
+          </template>
+        </Amount>
+      </div>
+    </Popper>
   </div>
 </template>
 
 <script>
+import Popper from 'vue-popperjs'
+import 'vue-popperjs/dist/vue-popper.css'
+
 export default {
+  components: { Popper },
   props: {
     amount: { type: Object, required: true },
     currencyId: { type: Number, required: true },
+  },
+  computed: {
+    diff() {
+      return (this.amount.income || 0) - (this.amount.expense || 0)
+    },
   },
 }
 </script>
@@ -66,12 +78,15 @@ export default {
     opacity: 0.8;
   }
 
-  & > .amount > span {
-    display: block;
+  .popper-reference {
+    cursor: zoom-in;
+
+    & > .amount > span {
+      display: block;
+    }
   }
 
-  .amount.income,
-  .amount.expense {
+  .amount.diff {
     font-size: 0.75em;
     line-height: 1.2em;
 
@@ -79,11 +94,10 @@ export default {
       font-size: 0.8em;
     }
   }
-  .amount.income {
-    color: green;
-  }
-  .amount.expense {
-    color: red;
+
+  .details-popup {
+    padding: 0.4em 0.6em;
+    text-align: left;
   }
 }
 </style>

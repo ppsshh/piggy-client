@@ -138,7 +138,7 @@ export default {
     flex-wrap: wrap;
     align-items: start;
     align-content: flex-start;
-    margin-top: 6em;
+    margin-top: 3.5em;
   }
 
   .main-column {
