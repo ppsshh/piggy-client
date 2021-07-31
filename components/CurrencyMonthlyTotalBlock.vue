@@ -71,6 +71,10 @@ export default {
   padding: 0.3em;
   text-align: center;
 
+  &.pink {
+    box-shadow: 0 0 1px 2px #ff5978;
+  }
+
   .currency {
     font-weight: bold;
     display: inline-block;
@@ -78,7 +82,7 @@ export default {
   }
 
   .popper-reference {
-    cursor: zoom-in;
+    cursor: pointer;
 
     & > .amount > span {
       display: block;
@@ -97,20 +101,6 @@ export default {
   .details-popup {
     padding: 0.4em 0.6em;
     text-align: left;
-  }
-}
-</style>
-
-<style lang="scss">
-.total-block.pink {
-  background: #ff5978;
-  color: white !important;
-
-  .popper-reference {
-    .amount.positive,
-    .amount.negative {
-      color: white;
-    }
   }
 }
 </style>

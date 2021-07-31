@@ -79,6 +79,7 @@ export default {
     background: #7772;
     color: #333;
     border-top-left-radius: 0.4em;
+    border-bottom-left-radius: 0.4em;
 
     .year {
       font-size: 0.82em;
@@ -113,6 +114,7 @@ export default {
       border-radius: 0.3em;
       color: #333;
       text-decoration: none;
+      font-size: 0.82em;
 
       &.current-month-link {
         grid-column: 1 / span 4;
