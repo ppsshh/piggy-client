@@ -47,14 +47,10 @@
       </div>
     </div>
 
-    <div class="totals-container">
-      <CurrencyMonthlyTotalBlock
-        v-for="(amount, cur) of total"
-        :key="cur"
-        :amount="amount"
-        :currency-id="Number.parseInt(cur)"
-      ></CurrencyMonthlyTotalBlock>
-    </div>
+    <CurrencyMonthlyTotals
+      :operations="operations"
+      :totals-before="totalsBefore"
+    />
   </div>
 </template>
 
@@ -70,7 +66,7 @@ export default {
   data() {
     return {
       operations: [],
-      total: [],
+      totalsBefore: [],
       hoveredTag: null,
       formId: null,
       createForm: false,
@@ -131,15 +127,6 @@ export default {
   display: grid;
   grid-template-columns: 1fr auto 20em 1fr;
   grid-column-gap: 2em;
-
-  .totals-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: start;
-    align-content: flex-start;
-    margin-top: 3.5em;
-  }
 
   .main-column {
     grid-column: 2;

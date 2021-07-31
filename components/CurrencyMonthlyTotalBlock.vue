@@ -3,14 +3,14 @@
     <Popper trigger="hover">
       <div class="popper details-popup">
         Income:
-        <Amount :amount="amount.income || 0" :currency-id="currencyId">
+        <Amount :amount="income || 0" :currency-id="currencyId">
           <template slot="testslot" slot-scope="a2">
             {{ a2.whole }}<span class="cents">{{ a2.cents }}</span>
           </template>
         </Amount>
         <br />
         Expense:
-        <Amount :amount="-1 * (amount.expense || 0)" :currency-id="currencyId">
+        <Amount :amount="-1 * (expense || 0)" :currency-id="currencyId">
           <template slot="testslot" slot-scope="a2">
             {{ a2.whole }}<span class="cents">{{ a2.cents }}</span>
           </template>
@@ -18,7 +18,7 @@
       </div>
 
       <div slot="reference" class="popper-reference">
-        <Amount :amount="amount.total" :currency-id="currencyId" :color="false">
+        <Amount :amount="totalAfter" :currency-id="currencyId" :color="false">
           <template slot="testslot" slot-scope="a">
             <div class="currency">{{ a.currency }}</div>
 
@@ -32,11 +32,10 @@
               </template>
             </Amount>
 
-            <div v-if="amount.total">
+            <div>
               {{ a.negativity }}{{ a.whole
               }}<span class="cents">{{ a.cents }}</span>
             </div>
-            <div v-else>0</div>
           </template>
         </Amount>
       </div>
@@ -51,13 +50,12 @@ import 'vue-popperjs/dist/vue-popper.css'
 export default {
   components: { Popper },
   props: {
-    amount: { type: Object, required: true },
     currencyId: { type: Number, required: true },
-  },
-  computed: {
-    diff() {
-      return (this.amount.income || 0) - (this.amount.expense || 0)
-    },
+    totalBefore: { type: Number, required: true },
+    totalAfter: { type: Number, required: true },
+    income: { type: Number, default: 0 },
+    expense: { type: Number, default: 0 },
+    diff: { type: Number, default: 0 },
   },
 }
 </script>
