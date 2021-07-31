@@ -6,10 +6,10 @@
         <div class="popper">
           <Calendar />
         </div>
-        <span slot="reference" class="title">
+        <div slot="reference" class="title">
           {{ date.toLocaleDateString('en-US', { month: 'long' }) }}
           {{ date.getFullYear() }}
-        </span>
+        </div>
       </Popper>
     </div>
 
@@ -76,13 +76,20 @@ export default {
     }
   }
 
-  .current-month .title {
-    font-size: 2em;
-    font-weight: bold;
-    cursor: pointer;
+  .current-month {
+    .popper {
+      margin-top: 0 !important;
+    }
+    .title {
+      font-size: 2em;
+      font-weight: bold;
+      cursor: pointer;
+      padding-bottom: 0.2em;
+      margin-bottom: -0.2em;
 
-    &:hover {
-      opacity: 0.8;
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 }

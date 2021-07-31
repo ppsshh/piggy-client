@@ -13,6 +13,9 @@
     </div>
 
     <div class="months-list">
+      <NuxtLink :to="currentMonthUrl" class="current-month-link"
+        >Current month</NuxtLink
+      >
       <NuxtLink
         v-for="(month, index) of months"
         :key="index"
@@ -45,6 +48,12 @@ export default {
       selectedYear: null,
     }
   },
+  computed: {
+    currentMonthUrl() {
+      const d = new Date()
+      return `/month/${d.getFullYear()}/${d.getMonth() + 1}`
+    },
+  },
   mounted() {
     const currentYear = new Date().getFullYear()
     const years = []
@@ -72,7 +81,8 @@ export default {
     border-top-left-radius: 0.4em;
 
     .year {
-      padding: 0.5em 0;
+      font-size: 0.82em;
+      padding: 0.8em 0;
       cursor: pointer;
 
       & + .year {
@@ -104,6 +114,9 @@ export default {
       color: #333;
       text-decoration: none;
 
+      &.current-month-link {
+        grid-column: 1 / span 4;
+      }
       &.nuxt-link-active {
         color: white !important;
         background: #ff5978 !important;
