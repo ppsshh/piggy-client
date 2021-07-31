@@ -48,20 +48,12 @@
     </div>
 
     <div class="totals-container">
-      <div v-for="(amount, cur) of total" :key="cur" class="total-block">
-        <Amount
-          :amount="amount"
-          :currency-id="Number.parseInt(cur)"
-          :color="false"
-        >
-          <template slot="testslot" slot-scope="a">
-            <div class="currency">{{ a.currency }}</div>
-            <br />
-            {{ a.negativity }}{{ a.whole
-            }}<span class="cents">{{ a.cents }}</span>
-          </template>
-        </Amount>
-      </div>
+      <CurrencyMonthlyTotalBlock
+        v-for="(amount, cur) of total"
+        :key="cur"
+        :amount="amount"
+        :currency-id="Number.parseInt(cur)"
+      ></CurrencyMonthlyTotalBlock>
     </div>
   </div>
 </template>
@@ -147,22 +139,6 @@ export default {
     align-items: start;
     align-content: flex-start;
     margin-top: 6em;
-
-    .total-block {
-      background: #aaaaaa2b;
-      border-radius: 0.3em;
-      display: inline-block;
-      line-height: 1.6em;
-      margin: 0.3em;
-      padding: 0.3em;
-      text-align: center;
-
-      .currency {
-        font-weight: bold;
-        display: inline-block;
-        opacity: 0.8;
-      }
-    }
   }
 
   .main-column {

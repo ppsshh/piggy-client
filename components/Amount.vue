@@ -1,5 +1,5 @@
 <template>
-  <span class="amount" :class="htmlClass"
+  <span class="amount" :class="htmlClasses"
     ><slot
       name="testslot"
       :whole="amountWhole"
@@ -17,6 +17,7 @@ export default {
     amount: { type: Number, required: true },
     currencyId: { type: Number, required: true },
     color: { type: Boolean, default: true },
+    htmlClass: { type: String, default: '' },
   },
   computed: {
     amountWhole() {
@@ -38,8 +39,9 @@ export default {
     currency() {
       return this.$store.state.globals.currencies[this.currencyId]
     },
-    htmlClass() {
+    htmlClasses() {
       return [
+        this.htmlClass,
         this.amount > 0 ? 'positive' : 'negative',
         this.color ? 'color' : 'no-color',
       ]
