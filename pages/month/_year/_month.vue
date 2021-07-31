@@ -11,7 +11,12 @@
         >
           Create new record
         </div>
-        <OperationForm v-else @cancel="createForm = false" />
+        <OperationForm
+          v-else
+          ref="newOperationForm"
+          @saved="recordCreated"
+          @cancel="createForm = false"
+        />
       </div>
 
       <div class="table" @mouseleave="hoveredTag = null">
@@ -101,13 +106,26 @@ export default {
     formSaved(resp) {
       const idx = this.operations.findIndex((i) => i.id === resp.id)
       resp.tag = this.$store.state.globals.tags[resp.tag_id]
-      if (idx !== -1) {
-        this.$set(this.operations, idx, resp)
-      } else {
-        this.operations.push(resp)
+
+      if (this.openedMonthMatches(resp)) {
+        idx !== -1
+          ? this.$set(this.operations, idx, resp)
+          : this.operations.push(resp)
+      } else if (idx !== -1) {
+        this.$delete(this.operations, idx)
       }
 
       this.formId = null
+    },
+    recordCreated(record) {
+      if (this.openedMonthMatches(record)) this.operations.push(record)
+
+      const f = this.$refs.newOperationForm
+      f.item.income = undefined
+      f.item.expense = undefined
+      f.item.tag = null
+      // f.item.shop = null
+      f.item.description = null
     },
     recordDeleted(recordId) {
       const idx = this.operations.findIndex((i) => i.id === recordId)
@@ -117,6 +135,13 @@ export default {
     },
     openCreateForm() {
       this.createForm = true
+    },
+    openedMonthMatches(record) {
+      const date = new Date(record.date)
+      return (
+        (date.getMonth() + 1).toString() === this.$route.params.month &&
+        date.getFullYear().toString() === this.$route.params.year
+      )
     },
   },
 }
