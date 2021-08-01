@@ -57,16 +57,16 @@ export default {
       )
     },
     totalIncomesConverted() {
-      return this.totalConverted(this.incomes)
+      return this.$ex.total(this.incomes)
     },
     totalExpensesConverted() {
-      return this.totalConverted(this.expenses)
+      return this.$ex.total(this.expenses)
     },
     totalDiffConverted() {
-      return this.totalConverted(this.diffs)
+      return this.$ex.total(this.diffs)
     },
     totalAfterConverted() {
-      return this.totalConverted(this.totalsAfter)
+      return this.$ex.total(this.totalsAfter)
     },
   },
   methods: {
@@ -75,12 +75,6 @@ export default {
       if (!acc[id]) acc[id] = 0
       acc[id] += amount
       return acc
-    },
-    totalConverted(obj) {
-      return Object.keys(obj).reduce(
-        (acc, curr) => acc + this.$ex.from(obj[curr], curr),
-        0
-      )
     },
   },
 }

@@ -20,6 +20,12 @@ export default (context, inject) => {
         const currency = store.state.globals.currencies[currencyId]
         return this.convert(amount, currency, this.defaultCurrency)
       },
+      total(obj) {
+        return Object.keys(obj).reduce(
+          (acc, curr) => acc + this.from(obj[curr], curr),
+          0
+        )
+      },
       convert(amount, c1, c2) {
         if (c1 === c2) return amount
 
