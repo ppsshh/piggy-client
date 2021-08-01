@@ -41,5 +41,12 @@ export default {
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    babel: {
+      babelrc: false,
+      cacheDirectory: undefined,
+      // presets: ['@nuxt/babel-preset-app'],
+      plugins: ['@babel/plugin-proposal-logical-assignment-operators'],
+    },
+  },
 }

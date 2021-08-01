@@ -3,7 +3,6 @@
     <MonthlyTotalCurrencyBlock
       v-for="(amount, cur) of totalsAfter"
       :key="cur"
-      :total-before="totalsBefore[cur]"
       :total-after="amount"
       :income="incomes[cur]"
       :expense="expenses[cur]"
@@ -85,7 +84,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: start;
+  align-items: flex-start;
   align-content: flex-start;
   margin-top: 3.5em;
 }

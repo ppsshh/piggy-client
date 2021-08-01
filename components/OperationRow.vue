@@ -7,6 +7,7 @@
     <div class="nowrap">{{ day }}</div>
     <div>
       <img v-if="imageSrc" :src="'/icons/' + imageSrc" class="tag-image" />
+      <template v-if="!op.tag">🈚️</template>
     </div>
     <div class="content-cell" @click="$emit('open', op.id)">
       <div class="nowrap amounts" style="text-align: right">

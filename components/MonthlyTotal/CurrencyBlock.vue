@@ -51,7 +51,6 @@ export default {
   components: { Popper },
   props: {
     currencyId: { type: Number, required: true },
-    totalBefore: { type: Number, required: true },
     totalAfter: { type: Number, required: true },
     income: { type: Number, default: 0 },
     expense: { type: Number, default: 0 },

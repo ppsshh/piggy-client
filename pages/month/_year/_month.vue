@@ -52,10 +52,13 @@
       </div>
     </div>
 
-    <MonthlyTotalCurrencies
-      :operations="operations"
-      :totals-before="totalsBefore"
-    />
+    <div>
+      <MonthlyTotalCurrencies
+        :operations="operations"
+        :totals-before="totalsBefore"
+      />
+      <MonthlyTotalTags :operations="operations" />
+    </div>
   </div>
 </template>
 
