@@ -9,9 +9,16 @@
       >
     </div>
 
-    <YearlyTotalGraph :operations="incomes" html-class="yearly-incomes-graph" />
     <YearlyTotalGraph
-      :operations="expenses"
+      ref="rincomes"
+      :operations="$store.state.yearly.incomes"
+      :total="$store.state.yearly.incomesTotal"
+      html-class="yearly-incomes-graph"
+    />
+    <YearlyTotalGraph
+      ref="rexpenses"
+      :operations="$store.state.yearly.expenses"
+      :total="$store.state.yearly.expensesTotal"
       html-class="yearly-expenses-graph"
     />
   </div>
@@ -22,13 +29,21 @@ export default {
   async asyncData({ params, $axios, store, $ex }) {
     const resp = await $axios.get(`/api/year/${params.year}`)
     store.commit('globals/SET', ['exrates', resp.data.exrates])
+    store.dispatch('yearly/setIncomes', resp.data.incomes)
+    store.dispatch('yearly/setExpenses', resp.data.expenses)
     return resp.data
   },
   data() {
     return { years: [], incomes: {}, expenses: {}, exrates: {} }
   },
-
-  mounted() {
+  computed: {
+    rinn() {
+      return this.$refs.rincomes
+        ? this.$refs.rincomes.operationsConverted
+        : null
+    },
+  },
+  created() {
     const currentYear = new Date().getFullYear()
     const years = []
     for (let i = 2010; i <= currentYear; i++) {

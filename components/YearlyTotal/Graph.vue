@@ -1,7 +1,7 @@
 <template>
   <div class="grouped-bar" :class="htmlClass">
     <div
-      v-for="op of orderedOperations"
+      v-for="op of operations"
       :key="'grouped-bar' + op.tag.id"
       :style="{ width: `${(op.amount / total) * 100}%` }"
       class="group-item-container"
@@ -66,45 +66,8 @@ export default {
   components: { Popper },
   props: {
     operations: { type: Object, required: true },
+    total: { type: Number, required: true },
     htmlClass: { type: String, default: '' },
-  },
-  computed: {
-    operationsConverted() {
-      return Object.keys(this.operations).reduce((acc, tagId) => {
-        const tag = this.getTag(tagId)
-        const parentId = tag ? tag.parentId || tag.id : 0
-        const parentTag = this.getTag(parentId)
-        const amount = this.$ex.total(this.operations[tagId])
-
-        acc[parentId] ||= { amount: 0, tag: parentTag, subtags: {} }
-        acc[parentId].amount += amount
-        acc[parentId].subtags[tagId] = { amount, tag }
-
-        return acc
-      }, {})
-    },
-    orderedOperations() {
-      return Object.values(this.operationsConverted).sort((a, b) =>
-        a.amount - b.amount > 0 ? -1 : 1
-      )
-    },
-    total() {
-      return Object.values(this.operationsConverted).reduce(
-        (acc, val) => acc + val.amount,
-        0
-      )
-    },
-  },
-  methods: {
-    getTag(id) {
-      return (
-        this.$store.state.globals.tags[id] || {
-          id: 0,
-          title: 'N/A',
-          parentId: null,
-        }
-      )
-    },
   },
 }
 </script>
