@@ -3,6 +3,7 @@
     <div class="navigation-menu">
       <NuxtLink to="/">M</NuxtLink>
       <NuxtLink to="/year">Y</NuxtLink>
+      <a @click="$session.logout">👤</a>
     </div>
     <Nuxt />
   </div>
@@ -24,6 +25,7 @@
     text-decoration: none;
     color: #555;
     font-weight: bold;
+    cursor: pointer;
 
     &:hover {
       background: #7774;

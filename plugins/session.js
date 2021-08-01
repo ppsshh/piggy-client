@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
-export default async (context, inject) => {
-  const { store, $axios, next } = context
+export default (context, inject) => {
+  const { store, $axios, next, route } = context
 
   const $session = new Vue({
     computed: {
@@ -12,11 +12,19 @@ export default async (context, inject) => {
         return cc && d ? cc[d] : {}
       },
     },
+    async created() {
+      try {
+        await store.dispatch('globals/load')
+        if (['login'].includes(route.name)) next('/')
+      } catch {
+        if (!['login'].includes(route.name)) next('/login')
+      }
+    },
     methods: {
       async logout() {
         try {
           await $axios.delete('/api/session')
-          store.commit('globals/SET_USER', null)
+          store.commit('globals/SET', ['user', null])
         } catch {}
         next('/login')
       },
@@ -37,6 +45,4 @@ export default async (context, inject) => {
   })
 
   inject('session', $session)
-
-  await store.dispatch('globals/load')
 }

@@ -34,7 +34,7 @@ export default {
   ],
 
   router: {
-    middleware: ['session'],
+    middleware: [],
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
