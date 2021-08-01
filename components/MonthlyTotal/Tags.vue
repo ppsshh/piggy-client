@@ -47,8 +47,7 @@ export default {
     incomeTags() {
       return this.operations.reduce((acc, op) => {
         // Skip exchanges and expeses
-        if (op.expense_amount || !op.income_currency_id || !op.income_amount)
-          return acc
+        if (op.is_conversion || op.expense_amount) return acc
 
         const oid = op.tag ? op.tag.parentId || op.tag.id : null
 
@@ -61,8 +60,7 @@ export default {
     expenseTags() {
       return this.operations.reduce((acc, op) => {
         // Skip exchanges and incomes
-        if (op.income_amount || !op.expense_currency_id || !op.expense_amount)
-          return acc
+        if (op.is_conversion || op.income_amount) return acc
 
         const oid = op.tag ? op.tag.parentId || op.tag.id : null
 
