@@ -1,19 +1,32 @@
 <template>
   <div>
+    <div class="navigation-menu">
+      <NuxtLink to="/">M</NuxtLink>
+      <NuxtLink to="/year">Y</NuxtLink>
+    </div>
     <Nuxt />
   </div>
 </template>
 
-<style lang="scss">
-body {
-  font-family: Segoe UI, Helvetica Neue, sans-serif;
-  font-size: 12pt;
+<style lang="scss" scoped>
+.navigation-menu {
+  position: absolute;
+  right: 0.8em;
+  margin-top: 0.25em;
 
   a {
-    color: #1c79cb;
+    width: 2em;
+    display: inline-block;
+    text-align: center;
+    padding: 0.3em 0.4em 0.4em 0.4em;
+    border: 1px dashed #7777;
+    border-radius: 0.3em;
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
 
     &:hover {
-      color: #529fe2;
+      background: #7774;
     }
   }
 }

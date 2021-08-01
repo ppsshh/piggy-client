@@ -1,2 +1,15 @@
 @import 'vue-multiselect/dist/vue-multiselect.min.css';
 @import 'popper';
+
+body {
+  font-family: Segoe UI, Helvetica Neue, sans-serif;
+  font-size: 12pt;
+
+  a {
+    color: #1c79cb;
+
+    &:hover {
+      color: #529fe2;
+    }
+  }
+}
