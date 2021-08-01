@@ -1,5 +1,5 @@
 <template>
-  <div class="grouped-bar">
+  <div class="grouped-bar" :class="htmlClass">
     <div
       v-for="op of orderedOperations"
       :key="'grouped-bar' + op.tag.id"
@@ -66,6 +66,7 @@ export default {
   components: { Popper },
   props: {
     operations: { type: Object, required: true },
+    htmlClass: { type: String, default: '' },
   },
   computed: {
     operationsConverted() {

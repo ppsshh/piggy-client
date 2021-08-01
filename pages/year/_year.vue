@@ -9,7 +9,11 @@
       >
     </div>
 
-    <YearlyTotalGraph :operations="expenses" />
+    <YearlyTotalGraph :operations="incomes" html-class="yearly-incomes-graph" />
+    <YearlyTotalGraph
+      :operations="expenses"
+      html-class="yearly-expenses-graph"
+    />
   </div>
 </template>
 
@@ -21,7 +25,7 @@ export default {
     return resp.data
   },
   data() {
-    return { years: [], expenses: {}, exrates: {} }
+    return { years: [], incomes: {}, expenses: {}, exrates: {} }
   },
 
   mounted() {
