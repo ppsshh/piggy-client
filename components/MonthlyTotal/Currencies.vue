@@ -1,6 +1,6 @@
 <template>
   <div class="totals-container">
-    <CurrencyMonthlyTotalBlock
+    <MonthlyTotalCurrencyBlock
       v-for="(amount, cur) of totalsAfter"
       :key="cur"
       :total-before="totalsBefore[cur]"
@@ -9,16 +9,16 @@
       :expense="expenses[cur]"
       :diff="diffs[cur]"
       :currency-id="Number.parseInt(cur)"
-    ></CurrencyMonthlyTotalBlock>
+    />
 
-    <CurrencyMonthlyTotalBlock
+    <MonthlyTotalCurrencyBlock
       :income="totalIncomesConverted"
       :expense="totalExpensesConverted"
       :diff="totalDiffConverted"
       :total-after="totalAfterConverted"
       :currency-id="$ex.defaultCurrency.id"
       class="pink"
-    ></CurrencyMonthlyTotalBlock>
+    />
   </div>
 </template>
 

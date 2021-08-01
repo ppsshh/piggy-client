@@ -52,7 +52,7 @@
       </div>
     </div>
 
-    <CurrencyMonthlyTotals
+    <MonthlyTotalCurrencies
       :operations="operations"
       :totals-before="totalsBefore"
     />
