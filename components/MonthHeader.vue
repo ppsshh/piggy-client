@@ -4,7 +4,7 @@
     <div class="current-month">
       <Popper trigger="hover">
         <div class="popper">
-          <Calendar />
+          <CalendarPopup />
         </div>
         <div slot="reference" class="title">
           {{ date.toLocaleDateString('en-US', { month: 'long' }) }}

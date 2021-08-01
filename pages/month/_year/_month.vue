@@ -151,7 +151,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .month-page {
   display: grid;
   grid-template-columns: 1fr auto 20em 1fr;
@@ -187,28 +187,28 @@ export default {
       margin: 0 3em;
     }
   }
-}
 
-.table {
-  display: table;
-  width: 100%;
+  .table {
+    display: table;
+    width: 100%;
 
-  .row,
-  .form-row {
-    display: table-row;
+    .row,
+    .form-row {
+      display: table-row;
 
-    & > div {
-      display: table-cell;
-    }
+      & > div {
+        display: table-cell;
+      }
 
-    .operation-form {
-      margin: 1em 0;
-    }
+      .operation-form {
+        margin: 1em 0;
+      }
 
-    .record-id {
-      font-size: 0.75em;
-      opacity: 0.5;
-      text-align: center;
+      .record-id {
+        font-size: 0.75em;
+        opacity: 0.5;
+        text-align: center;
+      }
     }
   }
 }
