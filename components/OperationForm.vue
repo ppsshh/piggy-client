@@ -226,20 +226,6 @@ export default {
     text-align: right;
   }
 
-  input[type='text'],
-  input[type='submit'],
-  input[type='button'],
-  textarea {
-    color: #35495e;
-    font-size: 0.85em;
-    font-family: inherit;
-    line-height: 1.5em;
-
-    border: 1px solid #e8e8e8;
-    border-radius: 5px;
-    padding: 0.5em;
-  }
-
   .date input,
   .income-amount input,
   .expense-amount input {
@@ -296,21 +282,8 @@ export default {
 
   input[type='button'],
   input[type='submit'] {
-    border: none;
     width: 100%;
     color: white;
-    text-transform: uppercase;
-
-    cursor: pointer;
-
-    &:hover {
-      opacity: 0.8;
-    }
-    &:active {
-      margin-top: 0.1em;
-      margin-bottom: -0.1em;
-      opacity: 1;
-    }
   }
   input[type='button'] {
     background: #7773;
@@ -347,6 +320,9 @@ export default {
     .multiselect__select {
       width: 2.5em;
       height: 2.5em;
+    }
+    .multiselect__input {
+      border: none;
     }
   }
 }

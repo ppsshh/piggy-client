@@ -1,9 +1,10 @@
 <template>
   <div class="middle-content login-form">
-    <h2>Login</h2>
     <form>
       <input v-model="username" type="text" placeholder="Username" />
+      <br />
       <input v-model="password" type="password" placeholder="Password" />
+      <br />
       <input type="submit" value="Login" @click.prevent="submit" />
     </form>
   </div>
@@ -27,3 +28,18 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.middle-content {
+  text-align: center;
+  padding-top: 3em;
+
+  input {
+    margin: 1em;
+  }
+  input[type='submit'] {
+    background: #ff5978;
+    color: white;
+  }
+}
+</style>
