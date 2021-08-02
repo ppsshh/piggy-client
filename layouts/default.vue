@@ -1,8 +1,10 @@
 <template>
   <div>
     <div class="navigation-menu">
-      <NuxtLink to="/">M</NuxtLink>
-      <NuxtLink to="/year">Y</NuxtLink>
+      <NuxtLink to="/">📅</NuxtLink>
+      <NuxtLink to="/year">🎍</NuxtLink>
+      <a>💰</a>
+      <a>🌗</a>
       <a @click="$session.logout">👤</a>
     </div>
     <Nuxt />

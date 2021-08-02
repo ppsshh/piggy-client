@@ -21,6 +21,10 @@
       :total="$store.state.yearly.expensesTotal"
       html-class="yearly-expenses-graph"
     />
+
+    <div class="flex-content">
+      <YearlyTotalTagsTable />
+    </div>
   </div>
 </template>
 
@@ -75,5 +79,9 @@ export default {
       background: #7773;
     }
   }
+}
+.flex-content {
+  display: flex;
+  justify-content: center;
 }
 </style>

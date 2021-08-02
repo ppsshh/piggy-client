@@ -65,7 +65,7 @@ import 'vue-popperjs/dist/vue-popper.css'
 export default {
   components: { Popper },
   props: {
-    operations: { type: Object, required: true },
+    operations: { type: Array, required: true },
     total: { type: Number, required: true },
     htmlClass: { type: String, default: '' },
   },
