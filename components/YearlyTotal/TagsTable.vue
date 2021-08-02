@@ -18,7 +18,12 @@
 
       <template v-for="subOp of op.subtags">
         <div :key="'ex' + op.tag.id + 'op' + subOp.tag.id" class="row">
-          <div class="cell">{{ subOp.tag.title }}</div>
+          <div class="cell">
+            <NuxtLink
+              :to="`/year/${$route.params.year}/tag?id=${subOp.tag.id}`"
+              >{{ subOp.tag.title }}</NuxtLink
+            >
+          </div>
           <div class="cell">
             <Amount
               :amount="subOp.amount"
