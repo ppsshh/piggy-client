@@ -5,7 +5,7 @@
         <div class="cell">{{ op.tag.title }}</div>
         <div class="cell">
           <Amount
-            :amount="-1 * op.amount"
+            :amount="op.amount"
             :currency-id="$ex.defaultCurrency.id"
             :color="false"
           >
@@ -21,7 +21,7 @@
           <div class="cell">{{ subOp.tag.title }}</div>
           <div class="cell">
             <Amount
-              :amount="-1 * subOp.amount"
+              :amount="subOp.amount"
               :currency-id="$ex.defaultCurrency.id"
               :color="false"
             >
@@ -40,19 +40,20 @@
 .table {
   display: table;
   margin-top: 2em;
+  height: min-content;
 
   .row {
     display: table-row;
 
     &.header {
       & + .row .cell {
-        border: none;
+        border-color: transparent;
       }
 
       .cell {
         background: #7773;
         color: #333;
-        border: none !important;
+        border-color: transparent;
         text-transform: uppercase;
       }
 

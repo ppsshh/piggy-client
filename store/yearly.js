@@ -5,6 +5,7 @@ export const state = () => ({
   expensesRaw: {},
   expenses: {},
   expensesTotal: 0,
+  shops: [],
 })
 
 export const mutations = {
@@ -69,6 +70,14 @@ export const actions = {
     ctx.commit('SET', ['expensesRaw', operations])
     ctx.commit('SET', ['expenses', ordered])
     ctx.commit('SET', ['expensesTotal', total])
+  },
+  setShops(ctx, shops) {
+    const converted = Object.keys(shops).reduce((acc, shop) => {
+      acc.push({ title: shop, amount: this.$ex.total(shops[shop]) })
+      return acc
+    }, [])
+    const ordered = converted.sort((a, b) => (a.amount - b.amount > 0 ? -1 : 1))
+    ctx.commit('SET', ['shops', ordered])
   },
 }
 

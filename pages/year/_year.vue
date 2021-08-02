@@ -9,14 +9,12 @@
       >
     </div>
 
-    <YearlyTotalGraph
-      ref="rincomes"
+    <!-- <YearlyTotalGraph
       :operations="$store.state.yearly.incomes"
       :total="$store.state.yearly.incomesTotal"
       html-class="yearly-incomes-graph"
-    />
+    /> -->
     <YearlyTotalGraph
-      ref="rexpenses"
       :operations="$store.state.yearly.expenses"
       :total="$store.state.yearly.expensesTotal"
       html-class="yearly-expenses-graph"
@@ -24,6 +22,8 @@
 
     <div class="flex-content">
       <YearlyTotalTagsTable />
+      <div style="width: 3em"></div>
+      <YearlyTotalShopsTable />
     </div>
   </div>
 </template>
@@ -35,17 +35,11 @@ export default {
     store.commit('globals/SET', ['exrates', resp.data.exrates])
     store.dispatch('yearly/setIncomes', resp.data.incomes)
     store.dispatch('yearly/setExpenses', resp.data.expenses)
+    store.dispatch('yearly/setShops', resp.data.shops)
     return resp.data
   },
   data() {
     return { years: [], incomes: {}, expenses: {}, exrates: {} }
-  },
-  computed: {
-    rinn() {
-      return this.$refs.rincomes
-        ? this.$refs.rincomes.operationsConverted
-        : null
-    },
   },
   created() {
     const currentYear = new Date().getFullYear()
