@@ -37,44 +37,27 @@
 </template>
 
 <style lang="scss" scoped>
-.table {
-  display: table;
-  margin-top: 2em;
-  height: min-content;
-
-  .row {
-    display: table-row;
-
-    &.header {
-      & + .row .cell {
-        border-color: transparent;
-      }
-
-      .cell {
-        background: #7773;
-        color: #333;
-        border-color: transparent;
-        text-transform: uppercase;
-      }
-
-      .cell:first-child {
-        border-top-left-radius: 0.3em;
-        border-bottom-left-radius: 0.3em;
-        font-weight: bold;
-      }
-      .cell:last-child {
-        border-top-right-radius: 0.3em;
-        border-bottom-right-radius: 0.3em;
-      }
+.table .row {
+  &.header {
+    & + .row .cell {
+      border-color: transparent;
     }
 
     .cell {
-      display: table-cell;
-      padding: 0.3em 0.5em 0.4em 0.5em;
-      border-top: 1px dashed #7777;
+      background: #7773;
+      color: #333;
+      border-color: transparent;
+      text-transform: uppercase;
+    }
+
+    .cell:first-child {
+      border-top-left-radius: 0.3em;
+      border-bottom-left-radius: 0.3em;
+      font-weight: bold;
     }
     .cell:last-child {
-      text-align: right;
+      border-top-right-radius: 0.3em;
+      border-bottom-right-radius: 0.3em;
     }
   }
 }

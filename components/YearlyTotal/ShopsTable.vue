@@ -20,23 +20,7 @@
 </template>
 
 <style lang="scss" scoped>
-.table {
-  display: table;
-  margin-top: 2em;
-  height: min-content;
-
-  .row {
-    display: table-row;
-
-    .cell {
-      display: table-cell;
-      padding: 0.3em 0.5em 0.4em 0.5em;
-      border-top: 1px dashed #7777;
-      max-width: 15em;
-    }
-    .cell:last-child {
-      text-align: right;
-    }
-  }
+.table .row .cell {
+  max-width: 15em;
 }
 </style>
