@@ -2,7 +2,12 @@
   <div class="shops-totals table">
     <template v-for="shop of $store.state.yearly.shops">
       <div :key="'shop' + shop.title" class="row">
-        <div class="cell">{{ shop.title }}</div>
+        <div class="cell">
+          <NuxtLink
+            :to="`/year/${$route.params.year}/shop?shop=${shop.title}`"
+            >{{ shop.title || '...' }}</NuxtLink
+          >
+        </div>
         <div class="cell">
           <Amount
             :amount="shop.amount"
