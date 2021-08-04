@@ -146,6 +146,7 @@ export default {
       try {
         this.error = null
         const resp = await this.$axios.post('/api/records', this.submitPayload)
+        resp.data.tag = this.$store.state.globals.tags[resp.data.tag_id]
         this.$emit('saved', resp.data)
       } catch (e) {
         this.error = e.response.data
