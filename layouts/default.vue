@@ -3,7 +3,7 @@
     <div class="navigation-menu">
       <NuxtLink to="/">📅</NuxtLink>
       <NuxtLink to="/year">🎍</NuxtLink>
-      <a>💰</a>
+      <!-- <a>💰</a> -->
       <a>🌗</a>
       <a @click="$session.logout">👤</a>
     </div>

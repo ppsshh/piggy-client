@@ -5,14 +5,14 @@
 
       <div class="create-form">
         <div
-          v-if="!createForm"
-          class="open-form-button"
+          v-show="!createForm"
+          class="open-form-button click-transform"
           @click="openCreateForm"
         >
           Create new record
         </div>
         <OperationForm
-          v-else
+          v-show="createForm"
           ref="newOperationForm"
           @saved="recordCreated"
           @cancel="createForm = false"

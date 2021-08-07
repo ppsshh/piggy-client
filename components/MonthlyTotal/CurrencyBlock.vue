@@ -1,6 +1,6 @@
 <template>
   <div class="total-block" :class="htmlClass">
-    <Popper trigger="hover">
+    <Popper trigger="clickToToggle">
       <div class="popper details-popup">
         Income:
         <Amount :amount="income || 0" :currency-id="currencyId">
@@ -17,7 +17,7 @@
         </Amount>
       </div>
 
-      <div slot="reference" class="popper-reference">
+      <div slot="reference" class="popper-reference click-transform">
         <Amount :amount="totalAfter" :currency-id="currencyId" :color="false">
           <template slot="testslot" slot-scope="a">
             <div class="currency">{{ a.currency }}</div>
@@ -62,30 +62,33 @@ export default {
 
 <style lang="scss" scoped>
 .total-block {
-  background: #aaaaaa2b;
-  border-radius: 0.3em;
-  display: inline-block;
-  line-height: 1.6em;
-  margin: 0.3em;
-  padding: 0.3em;
-  text-align: center;
-
-  &.pink {
-    box-shadow: 0 0 1px 2px #ff5978;
-  }
-
   .currency {
     font-weight: bold;
     display: inline-block;
     opacity: 0.8;
   }
 
+  .popper[x-placement^='bottom'] {
+    margin-top: 5px;
+  }
+
   .popper-reference {
     cursor: pointer;
+    background: #aaaaaa2b;
+    border-radius: 0.3em;
+    display: inline-block;
+    line-height: 1.6em;
+    margin: 0.3em;
+    padding: 0.3em;
+    text-align: center;
 
     & > .amount > span {
       display: block;
     }
+  }
+
+  &.pink .popper-reference {
+    box-shadow: 0 0 1px 2px #ff5978;
   }
 
   .amount.diff {

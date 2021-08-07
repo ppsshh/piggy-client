@@ -2,11 +2,11 @@
   <div class="month-header">
     <NuxtLink :to="prevUrl" class="prev-month">《</NuxtLink>
     <div class="current-month">
-      <Popper trigger="hover">
+      <Popper trigger="clickToToggle">
         <div class="popper">
           <CalendarPopup />
         </div>
-        <div slot="reference" class="title">
+        <div slot="reference" class="title click-transform">
           {{ date.toLocaleDateString('en-US', { month: 'long' }) }}
           {{ date.getFullYear() }}
         </div>

@@ -300,6 +300,7 @@ export default {
 .operation-form {
   .multiselect {
     font-size: 0.85em;
+    min-height: unset;
 
     .multiselect__tags,
     .multiselect__single,
