@@ -11,6 +11,7 @@
     </div>
     <div class="content-cell" @click="$emit('open', op.id)">
       <div class="nowrap amounts" style="text-align: right">
+        <template v-if="op.is_credit">💳</template>
         <Amount
           v-if="op.expense_amount"
           :amount="op.expense_amount * -1"

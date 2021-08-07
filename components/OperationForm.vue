@@ -1,42 +1,51 @@
 <template>
   <div class="operation-form">
-    <div class="date">
-      <input v-model="item.date" type="text" />
+    <div class="amounts-row">
+      <div class="date">
+        <input v-model="item.date" type="text" />
+      </div>
+
+      <div class="income-amount">
+        <input
+          v-model="item.income"
+          type="text"
+          :placeholder="'Income ' + $session.defaultCurrency.title"
+          @keyup.enter="inputEval"
+          @keyup.esc="inputRestoreValue"
+        />
+      </div>
+
+      <div class="expense-amount">
+        <input
+          v-model="item.expense"
+          type="text"
+          :placeholder="'Expense ' + $session.defaultCurrency.title"
+          @keyup.enter="inputEval"
+          @keyup.esc="inputRestoreValue"
+        />
+      </div>
     </div>
 
-    <div class="income-amount">
-      <input
-        v-model="item.income"
-        type="text"
-        :placeholder="'Income ' + $session.defaultCurrency.title"
-        @keyup.enter="inputEval"
-        @keyup.esc="inputRestoreValue"
-      />
+    <div class="tag-row">
+      <multiselect
+        v-model="item.tag"
+        :options="tags"
+        :custom-label="tagLabel"
+        placeholder="Tag"
+        @select="selectTag"
+      >
+      </multiselect>
+      <div
+        class="click-transform credit"
+        :class="{ disabled: !item.is_credit }"
+        @click="item.is_credit = !item.is_credit"
+      >
+        💳
+      </div>
     </div>
-
-    <div class="expense-amount">
-      <input
-        v-model="item.expense"
-        type="text"
-        :placeholder="'Expense ' + $session.defaultCurrency.title"
-        @keyup.enter="inputEval"
-        @keyup.esc="inputRestoreValue"
-      />
-    </div>
-
-    <multiselect
-      v-model="item.tag"
-      class="wide"
-      :options="tags"
-      :custom-label="tagLabel"
-      placeholder="Tag"
-      @select="selectTag"
-    >
-    </multiselect>
 
     <multiselect
       v-model="item.shop"
-      class="wide"
       :options="shops"
       :clear-on-select="false"
       :internal-search="false"
@@ -46,22 +55,25 @@
     >
     </multiselect>
 
-    <textarea
-      v-model="item.description"
-      class="wide"
-      placeholder="Description"
-    ></textarea>
+    <textarea v-model="item.description" placeholder="Description"></textarea>
 
-    <div v-if="error" class="wide error">{{ error }}</div>
+    <div v-if="error" class="error">{{ error }}</div>
 
-    <input v-if="item.id" type="button" value="Delete" @click="deleteItem" />
-    <input
-      class="middle-column"
-      type="button"
-      value="Cancel"
-      @click="$emit('cancel')"
-    />
-    <input class="right-column" type="submit" value="Submit" @click="submit" />
+    <div class="buttons-row">
+      <input v-if="item.id" type="button" value="Delete" @click="deleteItem" />
+      <input
+        class="middle-column"
+        type="button"
+        value="Cancel"
+        @click="$emit('cancel')"
+      />
+      <input
+        class="right-column"
+        type="submit"
+        value="Submit"
+        @click="submit"
+      />
+    </div>
   </div>
 </template>
 
@@ -81,6 +93,7 @@ export default {
       item: {
         tag: null,
         shop: null,
+        is_credit: false,
       },
       shops: [],
       error: null,
@@ -101,6 +114,7 @@ export default {
         'tag_id',
         'shop',
         'description',
+        'is_credit',
       ].reduce((acc, key) => {
         acc[key] = this.item[key]
         return acc
@@ -199,14 +213,34 @@ export default {
 
 <style lang="scss" scoped>
 .operation-form {
-  display: grid;
-  grid-auto-rows: auto;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 1em;
-  grid-row-gap: 0.6em;
+  display: flex;
+  flex-direction: column;
 
-  .wide {
-    grid-column: 1 / span 3;
+  & > * + * {
+    // Direct children except top one
+    margin-top: 0.8em;
+  }
+
+  .amounts-row,
+  .tag-row,
+  .buttons-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 1em;
+  }
+  .amounts-row {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .tag-row {
+    grid-template-columns: 1fr auto;
+
+    .credit {
+      font-size: 1.3em;
+
+      &.disabled {
+        filter: grayscale(1) opacity(0.5);
+      }
+    }
   }
 
   .middle-column {

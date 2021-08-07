@@ -32,7 +32,6 @@ body {
   input[type='submit'] {
     border: none;
     text-transform: uppercase;
-    cursor: pointer;
 
     &:hover {
       opacity: 0.8;
@@ -41,9 +40,13 @@ body {
       opacity: 1;
     }
   }
-  input[type='button']:active,
-  input[type='submit']:active,
-  .click-transform:active {
-    transform: translateY(2px);
+  input[type='button'],
+  input[type='submit'],
+  .click-transform {
+    cursor: pointer;
+
+    &:active {
+      transform: translateY(2px);
+    }
   }
 }
