@@ -3,14 +3,32 @@
     <Popper trigger="clickToToggle">
       <div class="popper details-popup">
         Income:
-        <Amount :amount="income || 0" :currency-id="currencyId">
+        <Amount :amount="income" :currency-id="currencyId">
           <template slot="testslot" slot-scope="a2">
             {{ a2.whole }}<span class="cents">{{ a2.cents }}</span>
           </template>
         </Amount>
         <br />
+
         Expense:
-        <Amount :amount="-1 * (expense || 0)" :currency-id="currencyId">
+        <Amount :amount="expense" :currency-id="currencyId">
+          <template slot="testslot" slot-scope="a2">
+            {{ a2.whole }}<span class="cents">{{ a2.cents }}</span>
+          </template>
+        </Amount>
+        <br />
+
+        Credit:
+        <Amount :amount="credit" :currency-id="currencyId">
+          <template slot="testslot" slot-scope="a2">
+            {{ a2.whole }}<span class="cents">{{ a2.cents }}</span>
+          </template>
+        </Amount>
+
+        <br />
+
+        Conversions:
+        <Amount :amount="conversion" :currency-id="currencyId">
           <template slot="testslot" slot-scope="a2">
             {{ a2.whole }}<span class="cents">{{ a2.cents }}</span>
           </template>
@@ -51,11 +69,28 @@ export default {
   components: { Popper },
   props: {
     currencyId: { type: Number, required: true },
-    totalAfter: { type: Number, required: true },
-    income: { type: Number, default: 0 },
-    expense: { type: Number, default: 0 },
-    diff: { type: Number, default: 0 },
+    amounts: { type: Object, required: true },
     htmlClass: { type: String, default: '' },
+  },
+  computed: {
+    income() {
+      return this.amounts.income || 0
+    },
+    expense() {
+      return this.amounts.expense || 0
+    },
+    credit() {
+      return this.amounts.credit || 0
+    },
+    conversion() {
+      return this.amounts.conversion || 0
+    },
+    diff() {
+      return this.income + this.expense + this.credit
+    },
+    totalAfter() {
+      return this.amounts.total || 0
+    },
   },
 }
 </script>
