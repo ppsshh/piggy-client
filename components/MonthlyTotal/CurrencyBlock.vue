@@ -2,32 +2,28 @@
   <div class="total-block" :class="htmlClass">
     <Popper trigger="clickToToggle">
       <div class="popper details-popup">
-        Income:
+        <div class="title">Income:</div>
         <Amount :amount="income" :currency-id="currencyId">
           <template slot="testslot" slot-scope="a2">
             {{ a2.whole }}<span class="cents">{{ a2.cents }}</span>
           </template>
         </Amount>
-        <br />
 
-        Expense:
+        <div class="title">Expense:</div>
         <Amount :amount="expense" :currency-id="currencyId">
           <template slot="testslot" slot-scope="a2">
             {{ a2.whole }}<span class="cents">{{ a2.cents }}</span>
           </template>
         </Amount>
-        <br />
 
-        Credit:
+        <div class="title">Credit:</div>
         <Amount :amount="credit" :currency-id="currencyId">
           <template slot="testslot" slot-scope="a2">
             {{ a2.whole }}<span class="cents">{{ a2.cents }}</span>
           </template>
         </Amount>
 
-        <br />
-
-        Conversions:
+        <div class="title">Conversions:</div>
         <Amount :amount="conversion" :currency-id="currencyId">
           <template slot="testslot" slot-scope="a2">
             {{ a2.whole }}<span class="cents">{{ a2.cents }}</span>
@@ -136,8 +132,16 @@ export default {
   }
 
   .details-popup {
-    padding: 0.4em 0.6em;
-    text-align: left;
+    padding: 0.4em 0.8em 0.6em 0.8em;
+    text-align: right;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 0.5em;
+    grid-row-gap: 0.2em;
+
+    .title {
+      text-align: left;
+    }
   }
 }
 </style>
