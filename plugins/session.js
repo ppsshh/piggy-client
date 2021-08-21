@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 export default (context, inject) => {
-  const { store, $axios, next, route } = context
+  const { store, $axios, next, route, redirect } = context
 
   const $session = new Vue({
     computed: {
@@ -15,9 +15,9 @@ export default (context, inject) => {
     async created() {
       try {
         await store.dispatch('globals/load')
-        if (['login'].includes(route.name)) next('/')
+        if (['login'].includes(route.name)) redirect(302, '/')
       } catch {
-        if (!['login'].includes(route.name)) next('/login')
+        if (!['login'].includes(route.name)) redirect(302, '/login')
       }
     },
     methods: {

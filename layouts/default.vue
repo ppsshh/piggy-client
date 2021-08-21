@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="navigation-menu">
+    <div v-if="$session.loggedIn()" class="navigation-menu">
       <NuxtLink to="/">📅</NuxtLink>
       <NuxtLink to="/year">🎍</NuxtLink>
       <!-- <a>💰</a> -->
