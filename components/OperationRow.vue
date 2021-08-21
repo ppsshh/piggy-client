@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="nowrap">{{ day }}</div>
+    <div class="nowrap">{{ showDate ? date : '' }}</div>
     <div>
       <img v-if="imageSrc" :src="'/icons/' + imageSrc" class="tag-image" />
       <template v-if="!op.tag && !op.is_conversion">🈚️</template>
@@ -40,7 +40,7 @@
 export default {
   props: {
     op: { type: Object, required: true },
-    day: { type: String, required: true },
+    showDate: { type: Boolean, default: true },
   },
   computed: {
     imageSrc() {
@@ -50,6 +50,12 @@ export default {
       const tagTitle = this.op.tag ? this.op.tag.title : null
       const shop = (this.op.shop || '').replace(/\s*\[.*\]/, '')
       return [tagTitle, shop].join(tagTitle && shop ? ' @ ' : '')
+    },
+    date() {
+      const date = new Date(this.op.date)
+      const month = date.toLocaleDateString('en-US', { month: 'short' })
+
+      return `${month} ${date.getDate()}`
     },
   },
 }

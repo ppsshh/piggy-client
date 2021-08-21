@@ -33,6 +33,7 @@
 export default {
   async asyncData({ params, store }) {
     await store.dispatch('operations/load', {
+      url: `/api/month/${params.year}/${params.month}`,
       year: params.year,
       month: params.month,
     })

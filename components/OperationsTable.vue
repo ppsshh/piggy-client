@@ -6,7 +6,7 @@
           v-if="formId !== op.id"
           :key="'row' + op.id"
           :op="op"
-          :day="index === 0 ? monthShort + ' ' + day.split('-')[2] : ''"
+          :show-date="index === 0"
           @open="openForm"
         />
         <div v-if="formId === op.id" :key="'form' + op.id" class="row form-row">
@@ -36,13 +36,6 @@ export default {
   computed: {
     days() {
       return Object.keys(this.orderedOperations).sort().reverse()
-    },
-    monthShort() {
-      const date = new Date(
-        this.$route.params.year,
-        Number.parseInt(this.$route.params.month) - 1
-      )
-      return date.toLocaleDateString('en-US', { month: 'short' })
     },
     orderedOperations() {
       return this.$store.state.operations.list.reduce((acc, op) => {

@@ -15,7 +15,8 @@ export const mutations = {
 
     const date = new Date(op.date)
     const dateMatches =
-      (date.getMonth() + 1).toString() === state.month &&
+      (state.month === null ||
+        (date.getMonth() + 1).toString() === state.month) &&
       date.getFullYear().toString() === state.year
 
     if (dateMatches) {
@@ -34,8 +35,8 @@ export const mutations = {
 }
 
 export const actions = {
-  async load(ctx, { year, month }) {
-    const resp = await this.$axios.get(`/api/month/${year}/${month}`)
+  async load(ctx, { url, year, month }) {
+    const resp = await this.$axios.get(url)
 
     ctx.commit('SET', ['year', year])
     ctx.commit('SET', ['month', month])
