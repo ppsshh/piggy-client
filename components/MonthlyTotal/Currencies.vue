@@ -17,13 +17,9 @@
 
 <script>
 export default {
-  props: {
-    totalsBefore: { type: Object, required: true },
-    operations: { type: Array, required: true },
-  },
   computed: {
     groupedOps() {
-      return this.operations.reduce(
+      return this.$store.state.operations.list.reduce(
         (acc, op) => {
           const g = this.getGroup(op)
           if (op.income_currency_id && op.income_amount) {
@@ -51,7 +47,7 @@ export default {
           income: {},
           expense: {},
           unknown: {},
-          total: Object.assign({}, this.totalsBefore),
+          total: Object.assign({}, this.$store.state.operations.totalsBefore),
         }
       )
     },

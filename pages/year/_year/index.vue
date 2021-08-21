@@ -9,11 +9,11 @@
       >
     </div>
 
-    <!-- <YearlyTotalGraph
+    <YearlyTotalGraph
       :operations="$store.state.yearly.incomes"
       :total="$store.state.yearly.incomesTotal"
       html-class="yearly-incomes-graph"
-    /> -->
+    />
     <YearlyTotalGraph
       :operations="$store.state.yearly.expenses"
       :total="$store.state.yearly.expensesTotal"

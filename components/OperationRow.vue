@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="row"
-    :class="{ highlighted: highlighted }"
-    @mouseenter="onHover(op.tag_id)"
-  >
+  <div class="row">
     <div class="nowrap">{{ day }}</div>
     <div>
       <img v-if="imageSrc" :src="'/icons/' + imageSrc" class="tag-image" />
@@ -44,9 +40,7 @@
 export default {
   props: {
     op: { type: Object, required: true },
-    highlighted: { type: Boolean, default: false },
     day: { type: String, required: true },
-    onHover: { type: Function, required: true },
   },
   computed: {
     imageSrc() {
@@ -65,9 +59,6 @@ export default {
 .row {
   display: table-row;
 
-  &.highlighted {
-    background: #ffe7b9;
-  }
   .nowrap {
     white-space: nowrap;
   }

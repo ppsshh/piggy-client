@@ -4,7 +4,7 @@
       <div class="header">Income</div>
       <div
         v-for="(amount, tagId) of incomeTags"
-        :key="'tag' + tagId"
+        :key="'in-tag' + tagId"
         class="row"
       >
         <div class="cell">{{ tagTitle(tagId) }}</div>
@@ -21,7 +21,7 @@
       <div class="header">Expenses</div>
       <div
         v-for="(amount, tagId) of expenseTags"
-        :key="'tag' + tagId"
+        :key="'ex-tag' + tagId"
         class="row"
       >
         <div class="cell">{{ tagTitle(tagId) }}</div>
@@ -40,12 +40,9 @@
 
 <script>
 export default {
-  props: {
-    operations: { type: Array, required: true },
-  },
   computed: {
     incomeTags() {
-      return this.operations.reduce((acc, op) => {
+      return this.$store.state.operations.list.reduce((acc, op) => {
         // Skip exchanges and expeses
         if (op.is_conversion || op.expense_amount || !op.income_amount)
           return acc
@@ -59,7 +56,7 @@ export default {
       }, {})
     },
     expenseTags() {
-      return this.operations.reduce((acc, op) => {
+      return this.$store.state.operations.list.reduce((acc, op) => {
         // Skip exchanges and incomes
         if (op.is_conversion || op.income_amount || !op.expense_amount)
           return acc
