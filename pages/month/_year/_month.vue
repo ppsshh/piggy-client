@@ -25,6 +25,7 @@
     <div>
       <MonthlyTotalCurrencies />
       <MonthlyTotalTags />
+      <MonthlyTotalMemo />
     </div>
   </div>
 </template>

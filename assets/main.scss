@@ -17,6 +17,7 @@ body {
   input[type='password'],
   input[type='submit'],
   input[type='button'],
+  button,
   textarea {
     color: #35495e;
     font-size: 0.85em;
@@ -29,7 +30,8 @@ body {
   }
 
   input[type='button'],
-  input[type='submit'] {
+  input[type='submit'],
+  button {
     border: none;
     text-transform: uppercase;
 
@@ -42,6 +44,7 @@ body {
   }
   input[type='button'],
   input[type='submit'],
+  button,
   .click-transform {
     cursor: pointer;
 

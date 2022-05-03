@@ -1,5 +1,6 @@
 export const state = () => ({
   user: null,
+  memo: null,
   tags: {},
   currencies: {},
   exrates: {},
@@ -17,6 +18,7 @@ export const actions = {
     const resp = await this.$axios.get('/api/globals')
 
     ctx.commit('SET', ['user', resp.data.user])
+    ctx.commit('SET', ['memo', resp.data.memo])
     ctx.commit('SET', ['tags', resp.data.tags])
     ctx.commit('SET', ['currencies', resp.data.currencies])
     ctx.commit('SET', ['defaultCurrencyId', resp.data.default_currency_id])
